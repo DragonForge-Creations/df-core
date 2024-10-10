@@ -1,0 +1,4 @@
+name: DragonForgeCore
+version: '0.0.1'
+main: me.quickscythe.dragonforge.Core
+api-version: '1.21'
