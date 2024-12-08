@@ -1,0 +1,116 @@
+{
+  "server_menu": {
+    "name": "Server Menu",
+    "size:": 9,
+    "config": "XAXBXCXDX",
+    "items": {
+      "A": {
+        "name": "Item A",
+        "type": "DIAMOND",
+        "amount": 1,
+        "lore": [
+          "This is item A"
+        ],
+        "actions": [
+          {
+            "click": "LEFT",
+            "action": "OPEN_GUI",
+            "gui": "gui_a"
+          },
+          {
+            "click": "RIGHT",
+            "action": "CLOSE"
+          }
+        ]
+      },
+      "B": {
+        "name": "Item B",
+        "type": "GOLD_INGOT",
+        "amount": 1,
+        "lore": [
+          "This is item B"
+        ],
+        "actions": [
+          {
+            "click": "LEFT",
+            "action": "OPEN_GUI",
+            "gui": "gui_b"
+          },
+          {
+            "click": "RIGHT",
+            "action": "CLOSE"
+          }
+        ]
+      },
+      "C": {
+        "name": "Item C",
+        "type": "IRON_INGOT",
+        "amount": 1,
+        "lore": [
+          "This is item C"
+        ],
+        "actions": [
+          {
+            "click": "LEFT",
+            "action": "OPEN_GUI",
+            "gui": "gui_c"
+          },
+          {
+            "click": "RIGHT",
+            "action": "CLOSE"
+          }
+        ]
+      },
+      "D": {
+        "name": "Item D",
+        "type": "EMERALD",
+        "amount": 1,
+        "lore": [
+          "This is item D"
+        ],
+        "actions": [
+          {
+            "click": "LEFT",
+            "action": "OPEN_GUI",
+            "gui": "gui_d"
+          },
+          {
+            "click": "RIGHT",
+            "action": "CLOSE"
+          }
+        ]
+      },
+      "X": {
+        "name": "Empty",
+        "type": "AIR",
+        "amount": 1
+      }
+    }
+  },
+  "gui_a": {
+    "name": "GUI A",
+    "size": 9,
+    "config": "XXXXXXXX",
+    "items": {
+      "A": {
+        "name": "Item A",
+        "type": "DIAMOND",
+        "amount": 1,
+        "lore": [
+          "This is item A"
+        ],
+        "actions": [
+          {
+            "click": "LEFT",
+            "action": "CLOSE"
+          }
+        ]
+      },
+      "X": {
+        "name": "Empty",
+        "type": "AIR",
+        "amount": 1
+      }
+    }
+  }
+}

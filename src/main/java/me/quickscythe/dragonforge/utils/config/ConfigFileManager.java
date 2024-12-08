@@ -58,11 +58,12 @@ public class ConfigFileManager {
                     if (!file.createNewFile())
                         throw new IOException("Couldn't create file (" + filename + ".json)");
                 } catch (IOException e) {
-                    CoreUtils.getLogger().log(Logger.LogLevel.ERROR, e);
+                    CoreUtils.logger().log(Logger.LogLevel.ERROR, e);
                 }
             }
             ConfigFile config = new ConfigFile(plugin, file, defaults);
             FILE_MAP.put(key, config);
+            config.save();
         }
         return FILE_MAP.get(key);
     }
@@ -87,7 +88,7 @@ public class ConfigFileManager {
             }
             defaults = data.toString().isEmpty() ? defaults : new JSONObject(data.toString());
         } catch (IOException e) {
-            CoreUtils.getLogger().log(Logger.LogLevel.ERROR, e);
+            CoreUtils.logger().log(Logger.LogLevel.ERROR, e);
         }
         return getFile(plugin, filename, defaults);
     }

@@ -63,6 +63,10 @@ public class Logger {
         log(LogLevel.ERROR, ex);
     }
 
+    public ComponentLogger logger() {
+        return LOG;
+    }
+
 
     public enum LogLevel {
         INFO("[INFO]", "#438df2"), WARN("[WARN]", NamedTextColor.YELLOW), ERROR("[ERROR]", NamedTextColor.RED), TRACE("[TRACE]"), DEBUG("[DEBUG]");

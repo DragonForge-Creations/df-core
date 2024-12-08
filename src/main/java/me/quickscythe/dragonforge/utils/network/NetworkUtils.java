@@ -41,8 +41,8 @@ public class NetworkUtils {
             return conn.getInputStream();
 
         } catch (Exception ex) {
-            CoreUtils.getLogger().log(Logger.LogLevel.ERROR, "There was an error downloading that file. (" + url + ")");
-            CoreUtils.getLogger().error(ex);
+            CoreUtils.logger().log(Logger.LogLevel.ERROR, "There was an error downloading that file. (" + url + ")");
+            CoreUtils.logger().error(ex);
 
         }
 
@@ -58,7 +58,7 @@ public class NetworkUtils {
             in.close();
             out.close();
         } catch (IOException ex) {
-            CoreUtils.getLogger().error(ex);
+            CoreUtils.logger().error(ex);
         }
     }
 }

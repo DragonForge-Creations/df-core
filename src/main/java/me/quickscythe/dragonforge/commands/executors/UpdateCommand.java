@@ -40,7 +40,7 @@ public class UpdateCommand extends CustomCommand {
 
     public UpdateCommand(JavaPlugin plugin) {
         super(plugin, "update");
-        props = new String[]{CoreUtils.getConfig().getData().getString("jenkins_user"), CoreUtils.getConfig().getData().getString("jenkins_password"), CoreUtils.getConfig().getData().getString("jenkins_url"), CoreUtils.getConfig().getData().getString("jenkins_api_endpoint")};
+        props = new String[]{CoreUtils.config().getData().getString("jenkins_user"), CoreUtils.config().getData().getString("jenkins_password"), CoreUtils.config().getData().getString("jenkins_url"), CoreUtils.config().getData().getString("jenkins_api_endpoint")};
     }
 
     @Override
@@ -58,30 +58,30 @@ public class UpdateCommand extends CustomCommand {
                                     String filename = plugin + "-" + version + ".jar";
                                     String url = "https://ci.vanillaflux.com/job/" + plugin + "/lastSuccessfulBuild/artifact/build/libs/" + filename;
                                     //Downloading <plugin> <version>...
-                                    CoreUtils.getLogger().log(Logger.LogLevel.INFO, text("Downloading ", NamedTextColor.WHITE).append(getStylizedName(plugin, version)).append(text("...", NamedTextColor.YELLOW)), context.getSource().getSender());
+                                    CoreUtils.logger().log(Logger.LogLevel.INFO, text("Downloading ", NamedTextColor.WHITE).append(getStylizedName(plugin, version)).append(text("...", NamedTextColor.YELLOW)), context.getSource().getSender());
                                     InputStream in = NetworkUtils.downloadFile(url, props[0], props[1]);
                                     if (in != null) {
                                         try {
 
                                             //TODO Make getMessage(<key>) work with placeholders
-                                            for (File file : CoreUtils.getPlugin().getDataFolder().getParentFile().listFiles()) {
+                                            for (File file : CoreUtils.plugin().getDataFolder().getParentFile().listFiles()) {
                                                 String name = file.getName();
                                                 if (name.startsWith(plugin) && file.isFile()) {
                                                     //Found existing file.
-                                                    CoreUtils.getLogger().log(Logger.LogLevel.INFO, text("Found existing file.").color(NamedTextColor.YELLOW), context.getSource().getSender());
+                                                    CoreUtils.logger().log(Logger.LogLevel.INFO, text("Found existing file.").color(NamedTextColor.YELLOW), context.getSource().getSender());
                                                     String old_version = name.replaceAll(plugin + "-", "").replaceAll(".jar", "");
                                                     Files.deleteIfExists(file.toPath());
                                                     //<plugin> <version> has veen deleted.
-                                                    CoreUtils.getLogger().log(Logger.LogLevel.INFO, text().content("").append(getStylizedName(plugin, old_version)).append(text(" has been deleted.", NamedTextColor.YELLOW)).build(), context.getSource().getSender());
+                                                    CoreUtils.logger().log(Logger.LogLevel.INFO, text().content("").append(getStylizedName(plugin, old_version)).append(text(" has been deleted.", NamedTextColor.YELLOW)).build(), context.getSource().getSender());
                                                 }
                                             }
                                             NetworkUtils.saveStream(in, new FileOutputStream("plugins/" + filename));
                                             //Finished downloading <plugin> <name>.
-                                            CoreUtils.getLogger().log(Logger.LogLevel.INFO, text().content("Finished downloading ").color(NamedTextColor.YELLOW).append(getStylizedName(plugin, version)).append(text(".", NamedTextColor.WHITE)).build(), context.getSource().getSender());
+                                            CoreUtils.logger().log(Logger.LogLevel.INFO, text().content("Finished downloading ").color(NamedTextColor.YELLOW).append(getStylizedName(plugin, version)).append(text(".", NamedTextColor.WHITE)).build(), context.getSource().getSender());
                                         } catch (FileNotFoundException e) {
-                                            CoreUtils.getLogger().log(Logger.LogLevel.ERROR, e);
+                                            CoreUtils.logger().log(Logger.LogLevel.ERROR, e);
                                         } catch (IOException e) {
-                                            CoreUtils.getLogger().log(Logger.LogLevel.ERROR, "ERROR");
+                                            CoreUtils.logger().log(Logger.LogLevel.ERROR, "ERROR");
                                             throw new RuntimeException(e);
                                         }
                                     }

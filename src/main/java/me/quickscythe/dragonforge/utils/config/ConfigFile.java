@@ -38,22 +38,27 @@ public class ConfigFile implements Config {
             }
             scanner.close();
         } catch (IOException e) {
-            CoreUtils.getLogger().log(Logger.LogLevel.ERROR, e);
+            CoreUtils.logger().log(Logger.LogLevel.ERROR, e);
         }
         this.data = data.toString().isEmpty() ? defaults : new JSONObject(data.toString());
         this.defaults = new JSONObject(defaults.toString());
+        for(String key : defaults.keySet()){
+            if(!this.data.has(key)){
+                this.data.put(key, defaults.get(key));
+            }
+        }
         this.file = file;
     }
 
     public void save() {
-        CoreUtils.getLogger().log("Saving " + plugin.getName() + "/" + file.getName());
+        CoreUtils.logger().log("Saving " + plugin.getName() + "/" + file.getName());
         try {
             FileWriter f2 = new FileWriter(file, false);
             f2.write(data.toString(2));
             f2.close();
         } catch (IOException e) {
-            CoreUtils.getLogger().log(Logger.LogLevel.ERROR, "There was an error saving " + file.getName());
-            CoreUtils.getLogger().log(Logger.LogLevel.ERROR, e);
+            CoreUtils.logger().log(Logger.LogLevel.ERROR, "There was an error saving " + file.getName());
+            CoreUtils.logger().log(Logger.LogLevel.ERROR, e);
         }
     }
 

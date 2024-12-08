@@ -14,7 +14,7 @@ import java.util.List;
 public class CommandManager {
     public static void init() {
 
-        new CommandBuilder(new UpdateCommand(CoreUtils.getPlugin())).setDescription("Test desc").setAliases("getnew").register();
+        new CommandBuilder(new UpdateCommand(CoreUtils.plugin())).setDescription("Test desc").setAliases("getnew").register();
 //        new CommandBuilder(new ConfigCommand(ShadowUtils.getPlugin())).setDescription("Edit ShadowCore config files").register();
 //        new CommandBuilder(new EntityCommand(ShadowUtils.getPlugin())).setDescription("Edit ShadowCore config files").setAliases("centity", "ientity", "ce", "ie").register();
     }
