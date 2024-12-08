@@ -13,21 +13,16 @@ public class DataManager {
     private static File configFolder;
 
     private static final InternalStorage storage = new InternalStorage();
-    private static ConfigFile configFile;
     private static File dataFolder;
 
     public static void init(JavaPlugin plugin) {
         dataFolder = plugin.getDataFolder();;
         if(!dataFolder.exists()) CoreUtils.logger().log("Creating data folder: " + dataFolder.mkdir());
-        configFile = ConfigFileManager.getFile(plugin, "config", "config.json");
 
 
 
     }
 
-    public static ConfigFile getConfigFile() {
-        return configFile;
-    }
 
     public static File getDataFolder() {
         return dataFolder;
