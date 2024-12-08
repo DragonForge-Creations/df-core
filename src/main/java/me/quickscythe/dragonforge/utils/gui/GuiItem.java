@@ -11,11 +11,14 @@ import org.bukkit.event.inventory.ClickType;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.inventory.meta.SkullMeta;
 import json2.JSONArray;
 import json2.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.UUID;
 
 
 public class GuiItem {
@@ -24,7 +27,9 @@ public class GuiItem {
     Material mat = Material.GRASS_BLOCK;
     List<String> lore = null;
     JSONArray actions = new JSONArray();
+    int model = 0;
     int amount = 1;
+    SkullData skullData = null;
 
     public GuiItem(String id) {
         this.id = id;
@@ -45,13 +50,13 @@ public class GuiItem {
         return this;
     }
 
-    public GuiItem addAction(JSONObject action) {
-        this.actions.put(action);
-        return this;
+    public GuiItem setLore(String... lore) {
+        List<String> list = new ArrayList<>(Arrays.asList(lore));
+        return setLore(list);
     }
 
-    public GuiItem setAmount(int i) {
-        this.amount = i;
+    public GuiItem addAction(JSONObject action) {
+        this.actions.put(action);
         return this;
     }
 
@@ -59,15 +64,18 @@ public class GuiItem {
         return amount;
     }
 
+    public GuiItem setAmount(int i) {
+        this.amount = i;
+        return this;
+    }
+
+    public JSONArray getActions() {
+        return actions;
+    }
 
     public GuiItem setActions(JSONArray actions) {
         this.actions = actions;
         return this;
-    }
-
-
-    public JSONArray getActions() {
-        return actions;
     }
 
     public String getIdentifier() {
@@ -86,8 +94,14 @@ public class GuiItem {
             }
             meta.setLore(tmp);
         }
-        if (meta != null) {
 
+        if(skullData != null){
+            SkullMeta sm = (SkullMeta) meta;
+            sm.setOwningPlayer(Bukkit.getOfflinePlayer(skullData.getUUID()));
+        }
+
+        if (meta != null) {
+            meta.setCustomModelData(model);
             meta.addItemFlags(ItemFlag.values());
             meta.setDisplayName(MessageUtils.colorize(PlaceholderUtils.replace(player, display_name)));
             item.setItemMeta(meta);
@@ -104,7 +118,7 @@ public class GuiItem {
 
     /**
      * @param player Online Player entity
-     * @param type Type of Click
+     * @param type   Type of Click
      * @return returns true if all processes run
      */
     public boolean processActions(Player player, ClickType type) {
@@ -150,7 +164,7 @@ public class GuiItem {
                     try {
                         GuiManager.openGui(player, GuiManager.getGui(action.getString("gui")));
                     } catch (NullPointerException ex) {
-                        player.sendMessage(MessageUtils.getMessage("gui") + "There was an error opening that GUI. Does it exist?");
+                        player.sendMessage(MessageUtils.getMessage("gui.error.not_exist"));
                     }
                     return true;
 
@@ -172,5 +186,24 @@ public class GuiItem {
 
     }
 
+    public GuiItem setCustomModelData(int model) {
+        this.model = model;
+        return this;
+    }
 
+    public void setSkullData(SkullData data) {
+        this.skullData = data;
+    }
+
+    public static class SkullData {
+        UUID owner;
+
+        public SkullData(UUID owner){
+            this.owner = owner;
+        }
+
+        public UUID getUUID() {
+            return owner;
+        }
+    }
 }

@@ -7,6 +7,8 @@ import me.quickscythe.dragonforge.utils.config.ConfigFileManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.*;
+import java.util.HashMap;
+import java.util.Map;
 
 public class DataManager {
 
@@ -16,11 +18,8 @@ public class DataManager {
     private static File dataFolder;
 
     public static void init(JavaPlugin plugin) {
-        dataFolder = plugin.getDataFolder();;
+        dataFolder = plugin.getDataFolder();
         if(!dataFolder.exists()) CoreUtils.logger().log("Creating data folder: " + dataFolder.mkdir());
-
-
-
     }
 
 
