@@ -1,10 +1,10 @@
 package me.quickscythe.dragonforge.listeners;
 
 
-import me.quickscythe.ll4el.LastLife;
-import me.quickscythe.ll4el.utils.gui.GuiInventory;
-import me.quickscythe.ll4el.utils.gui.GuiItem;
-import me.quickscythe.ll4el.utils.gui.GuiManager;
+import me.quickscythe.dragonforge.Core;
+import me.quickscythe.dragonforge.utils.gui.GuiInventory;
+import me.quickscythe.dragonforge.utils.gui.GuiItem;
+import me.quickscythe.dragonforge.utils.gui.GuiManager;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -14,7 +14,7 @@ import org.bukkit.event.inventory.InventoryCloseEvent;
 
 public class GuiListener implements Listener {
 
-    public GuiListener(LastLife plugin) {
+    public GuiListener(Core plugin) {
         plugin.getServer().getPluginManager().registerEvents(this, plugin);
     }
 
