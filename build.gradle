@@ -8,7 +8,7 @@ plugins {
 }
 
 group = rootProject.group
-version = "$plugin_version";
+version = "$plugin_version-$minecraft_version-$build_status-B$build_number"
 
 repositories {
     mavenCentral()
