@@ -38,5 +38,9 @@ public class DataManager {
         return configManagers.getOrDefault(name, null);
     }
 
+    public static <T extends ConfigManager> T  getConfigManager(String name, Class<T> clazz) {
+        return clazz.cast(configManagers.getOrDefault(name, null));
+    }
+
 
 }
