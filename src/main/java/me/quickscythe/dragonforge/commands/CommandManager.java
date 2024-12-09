@@ -20,13 +20,13 @@ public class CommandManager {
     }
 
     public static class CommandBuilder {
-        CustomCommand cmd;
+        CommandExecutor cmd;
         String desc = "";
         String[] aliases = new String[]{};
 
 
         @CheckReturnValue
-        public CommandBuilder(CustomCommand executor) {
+        public CommandBuilder(CommandExecutor executor) {
             this.cmd = executor;
         }
 

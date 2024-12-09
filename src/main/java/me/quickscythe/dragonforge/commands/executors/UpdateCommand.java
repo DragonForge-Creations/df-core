@@ -8,7 +8,7 @@ import com.mojang.brigadier.suggestion.Suggestions;
 import com.mojang.brigadier.suggestion.SuggestionsBuilder;
 import com.mojang.brigadier.tree.LiteralCommandNode;
 import io.papermc.paper.command.brigadier.CommandSourceStack;
-import me.quickscythe.dragonforge.commands.CustomCommand;
+import me.quickscythe.dragonforge.commands.CommandExecutor;
 import me.quickscythe.dragonforge.utils.CoreUtils;
 import me.quickscythe.dragonforge.utils.chat.Logger;
 import me.quickscythe.dragonforge.utils.network.NetworkUtils;
@@ -33,7 +33,7 @@ import static io.papermc.paper.command.brigadier.Commands.argument;
 import static io.papermc.paper.command.brigadier.Commands.literal;
 import static net.kyori.adventure.text.Component.text;
 
-public class UpdateCommand extends CustomCommand {
+public class UpdateCommand extends CommandExecutor {
 
     String[] props;
 
