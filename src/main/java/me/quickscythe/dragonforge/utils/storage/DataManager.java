@@ -31,6 +31,7 @@ public class DataManager {
 
     public static void registerConfigManager(ConfigManager manager) {
         configManagers.put(manager.name(), manager);
+        manager.start();
     }
 
     public static ConfigManager getConfigManager(String name) {

@@ -30,4 +30,8 @@ public abstract class ConfigManager {
     public String name() {
         return name;
     }
+
+    public ConfigFile config() {
+        return config;
+    }
 }
