@@ -43,4 +43,7 @@ public class DataManager {
     }
 
 
+    public static void end() {
+        configManagers.values().forEach(ConfigManager::end);
+    }
 }

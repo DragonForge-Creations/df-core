@@ -24,6 +24,8 @@ public abstract class ConfigManager {
     }
 
     public void end() {
+
+        CoreUtils.logger().log("Ending " + name + " ConfigManager...");
         config.save();
     }
 
