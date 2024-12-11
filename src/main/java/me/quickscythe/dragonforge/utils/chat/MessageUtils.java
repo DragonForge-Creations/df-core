@@ -53,7 +53,7 @@ public class MessageUtils {
     public static void loadChangesToFile() {
         try {
             FileWriter f2 = new FileWriter(file, false);
-            f2.write(messages.toString());
+            f2.write(messages.toString(2));
             f2.close();
         } catch (IOException e) {
             e.printStackTrace();
@@ -61,41 +61,14 @@ public class MessageUtils {
     }
 
     public static void addMessage(String key, String value){
-        messages.put(key, value);
+        if(!messages.has(key)) messages.put(key, value);
     }
 
     private static void createDefaultMessages() {
-        messages.put("message.boogie.chat", "&cYou are a Boogie! Kill someone fast to get rid of this effect!");
-        messages.put("message.boogie.countdown.4", "&c&lBoogie will be selected in...");
-        messages.put("message.boogie.countdown.3", "&c&l3...");
-        messages.put("message.boogie.countdown.2", "&c&l2...");
-        messages.put("message.boogie.countdown.1", "&c&l1...");
-        messages.put("message.boogie.countdown.0", "&c&lYou are...");
-        messages.put("message.boogie.countdown.boogie", "&c&la Boogie!");
-        messages.put("message.boogie.countdown.not", "&a&lNOT a Boogie!");
-        messages.put("message.boogie.cured", "&aYou've been cured!");
-        messages.put("action.elimination", "[0] has been eliminated[1]!");
-        messages.put("cmd.error.player_only","&cSorry, that is a player only command.");
-        messages.put("message.lives.more", "&aYou've gained [0] lives.");
-        messages.put("cmd.loot.create.success", "&aSuccessfully created [0] loot drop at [1].");
-        messages.put("cmd.life.edit.success", "&aSuccessfully edited the lives of [0].");
-        messages.put("cmd.error.no_player", "&cSorry \"[0]\" couldn't be find. If the player is offline their username must be typed exactly.");
-        messages.put("cmd.boogie.set.success", "&a[0] is now a boogie.");
-        messages.put("cmd.boogie.roll", "&aNow rolling for [0] boogie(s).");
-        messages.put("cmd.boogie.remove.success", "&a[0] is no longer a boogie.");
-        messages.put("cmd.error.no_perm", "&cSorry, you don't have the permission to run that command.");
-        messages.put("cmd.party.join.other", "&a[0] is now in the [1] party.");
-        messages.put("party.join.success", "&aYou have joined the [0] party.");
-        messages.put("cmd.party.create", "&aSuccessfully created [0] party.");
-        messages.put("party.chat.join", "&7Party chat: &aon&7.");
-        messages.put("party.chat.leave", "&7Party chat: &coff&7.");
-        messages.put("party.chat.no_party", "&cYou aren't in a party.");
-        messages.put("error.party.no_party", "&c\"[0]\" doesn't seem to exist. Check your spelling and try again.");
-        messages.put("gui.error.not_exist", "&cThere was an error opening that GUI. Does it exist?");
-        messages.put("cmd.error.no_command", "&cSorry, couldn't find the command \"[0]\". Please check your spelling and try again.");
-
-
-
+        addMessage("cmd.error.no_player", "&cSorry \"[0]\" couldn't be find. If the player is offline their username must be typed exactly.");
+        addMessage("cmd.error.no_perm", "&cSorry, you don't have the permission to run that command.");
+        addMessage("gui.error.not_exist", "&cThere was an error opening that GUI. Does it exist?");
+        addMessage("cmd.error.no_command", "&cSorry, couldn't find the command \"[0]\". Please check your spelling and try again.");
     }
 
     public static void log(String message) {
