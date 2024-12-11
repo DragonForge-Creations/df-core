@@ -50,7 +50,7 @@ public class MessageUtils {
         if(discrepency) loadChangesToFile();
     }
 
-    private static void loadChangesToFile() {
+    public static void loadChangesToFile() {
         try {
             FileWriter f2 = new FileWriter(file, false);
             f2.write(messages.toString());
@@ -58,6 +58,10 @@ public class MessageUtils {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public static void addMessage(String key, String value){
+        messages.put(key, value);
     }
 
     private static void createDefaultMessages() {

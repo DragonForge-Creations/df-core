@@ -41,6 +41,8 @@ public class CoreUtils {
         DataManager.init(plugin);
         config = ConfigFileManager.getFile(plugin, "config", "config.json");
         GuiManager.init();
+        MessageUtils.start();
+
 
     }
 
