@@ -34,7 +34,6 @@ public class GuiManager {
 
 
         registerWaitingMenu();
-        reigsterSettingsMenu();
 
         try {
 
@@ -58,80 +57,7 @@ public class GuiManager {
         guis.put("waiting", gui);
     }
 
-    private static void reigsterSettingsMenu() {
-        GuiInventory inv = new GuiInventory("settings", "&a&lSettings", 27, "XXXXXXXXXXXAXBXCXXXXXXZXXXX");
 
-        GuiItem partSetting = getParticleItem();
-        inv.addItem(partSetting);
-
-        GuiItem iconSetting = getIconItem();
-        inv.addItem(iconSetting);
-
-        GuiItem chatSetting = getChatItem();
-        inv.addItem(chatSetting);
-
-        GuiItem closeInv = getCloseMenuItem();
-        inv.addItem(closeInv);
-
-        GuiItem air = new GuiItem("X");
-        air.setMaterial(Material.AIR);
-        air.setDisplayName("");
-        inv.addItem(air);
-
-        GuiManager.registerGui(inv);
-    }
-
-    private static GuiItem getCloseMenuItem() {
-        GuiItem close = new GuiItem("Z");
-        close.setMaterial(Material.BARRIER);
-        close.setDisplayName("&c&lClose Menu");
-        JSONArray closeArray = new JSONArray();
-        JSONObject closeAction1 = new JSONObject();
-        closeAction1.put("action","close_gui");
-        closeArray.put(closeAction1);
-        close.setActions(closeArray);
-        return close;
-    }
-
-    private static GuiItem getChatItem() {
-        GuiItem setting = new GuiItem("C");
-        setting.setMaterial(Material.STICK);
-        setting.setCustomModelData(102);
-        setting.setDisplayName("&cToggle the 'Boogie Message'");
-        setting.setLore("&7&oCurrent status: %setting_chat%");
-        setting.addAction(new JSONObject().put("action","command").put("command", "settings chat"));
-        setting.addAction(new JSONObject().put("action","command").put("command","settings"));
-        return setting;
-    }
-
-    private static GuiItem getIconItem() {
-        GuiItem setting = new GuiItem("B");
-        setting.setMaterial(Material.STICK);
-        setting.setCustomModelData(101);
-        setting.setDisplayName("&cToggle Boogie Icon");
-        setting.setLore("&7&oCurrent status: %setting_icon%");
-        setting.addAction(new JSONObject().put("action","command").put("command", "settings icon"));
-        setting.addAction(new JSONObject().put("action","command").put("command","settings"));
-//        JSONArray array = new JSONArray();
-//        JSONObject action1 = new JSONObject();
-//        action1.put("action","command");
-//        action1.put("command","settings icon");
-//        array.put(action1);
-//
-//        setting.setActions(array);
-        return setting;
-    }
-
-    private static GuiItem getParticleItem() {
-        GuiItem setting = new GuiItem("A");
-        setting.setMaterial(Material.STICK);
-        setting.setCustomModelData(100);
-        setting.setDisplayName("&aToggle Boogie Particles");
-        setting.setLore("&7&oCurrent status: %setting_particles%");
-        setting.addAction(new JSONObject().put("action","command").put("command", "settings particle"));
-        setting.addAction(new JSONObject().put("action","command").put("command","settings"));
-        return setting;
-    }
 
     public static void openGui(Player player, GuiInventory gui) {
         if (gui == null) return;
