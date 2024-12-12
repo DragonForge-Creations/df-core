@@ -18,15 +18,6 @@ public class PlaceholderUtils {
         registerPlaceholder("player", Player::getName);
         registerPlaceholder("online", (player) -> Bukkit.getOnlinePlayers().size() + "");
 
-        //todo Put these in ll4el plugin
-//        registerPlaceholder("lives_color", LifeManager::getLifeColor);
-//
-//        registerPlaceholder("setting_particles", (player)-> SettingsManager.getSettings(player).particles() ? "&aon" : "&coff");
-//        registerPlaceholder("setting_icon", (player)-> SettingsManager.getSettings(player).icon() ? "&aon" : "&coff");
-//        registerPlaceholder("setting_chat", (player)-> SettingsManager.getSettings(player).chat() ? "&aon" : "&coff");
-//        registerPlaceholder("setting_chat", (player)-> SettingsManager.getSettings(player).chat() ? "&aon" : "&coff");
-//        registerPlaceholder("party", (player)-> PlayerManager.getParty(player).equalsIgnoreCase("none") ? "" : PlayerManager.getParty(player));
-//        registerPlaceholder("party_tag", (player)-> PlayerManager.getParty(player).equalsIgnoreCase("none") ? "&f" : "[" + PlayerManager.getParty(player) + "]");
 
     }
 
