@@ -1,6 +1,7 @@
 package me.quickscythe.dragonforge.utils;
 
 
+import me.quickscythe.dragonforge.utils.chat.ChatManager;
 import me.quickscythe.dragonforge.utils.chat.DebugUtils;
 import me.quickscythe.dragonforge.utils.chat.Logger;
 import me.quickscythe.dragonforge.utils.chat.MessageUtils;
@@ -42,6 +43,7 @@ public class CoreUtils {
         config = ConfigFileManager.getFile(plugin, "config", "config.json");
         GuiManager.init();
         MessageUtils.start();
+        ChatManager.start();
 
 
     }
