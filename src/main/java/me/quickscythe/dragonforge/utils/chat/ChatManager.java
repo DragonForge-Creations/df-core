@@ -1,6 +1,10 @@
 package me.quickscythe.dragonforge.utils.chat;
 
+import json2.JSONObject;
 import me.quickscythe.dragonforge.utils.CoreUtils;
+import me.quickscythe.dragonforge.utils.config.ConfigFile;
+import me.quickscythe.dragonforge.utils.config.ConfigFileManager;
+import me.quickscythe.dragonforge.utils.storage.DataManager;
 import org.bukkit.configuration.file.FileConfiguration;
 
 import java.util.HashMap;
@@ -11,14 +15,15 @@ public class ChatManager {
     private static final Map<String, String> FORMATS = new HashMap<>();
 
     public static void start() {
-        FileConfiguration fc = CoreUtils.plugin().getConfig();
-        if (!fc.isSet("format.party")) fc.set("format.party", "&a[P]");
-        if (!fc.isSet("format.player")) fc.set("format.player", "&f<%lives_color%%player%&f> ");
-        if (!fc.isSet("format.chat")) fc.set("format.chat", "&f%message%");
-        CoreUtils.plugin().saveConfig();
-        FORMATS.put("party", fc.getString("format.party"));
-        FORMATS.put("player", fc.getString("format.player"));
-        FORMATS.put("chat", fc.getString("format.chat"));
+        ConfigFile file = ConfigFileManager.getFile(CoreUtils.plugin(), "chat_format");
+        JSONObject data = file.getData();
+        if(!data.has("party")) data.put("party", "&a[P]");
+        if(!data.has("player")) data.put("player", "&f<%lives_color%%player%&f> ");
+        if(!data.has("chat")) data.put("chat", "&f%message%");
+        file.save();
+        FORMATS.put("party", data.getString("format.party"));
+        FORMATS.put("player", data.getString("format.player"));
+        FORMATS.put("chat", data.getString("format.chat"));
     }
 
     public static String getFormat(String format) {
