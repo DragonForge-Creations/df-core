@@ -46,7 +46,7 @@ public class CommandManager {
             @NotNull LifecycleEventManager<Plugin> manager = cmd.getPlugin().getLifecycleManager();
             manager.registerEventHandler(LifecycleEvents.COMMANDS, event -> {
                 final Commands commands = event.registrar();
-                commands.register(cmd.getNode(), desc, List.of(aliases));
+                commands.register(cmd.execute(), desc, List.of(aliases));
             });
         }
     }

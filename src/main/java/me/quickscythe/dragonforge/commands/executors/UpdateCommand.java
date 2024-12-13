@@ -44,7 +44,7 @@ public class UpdateCommand extends CommandExecutor {
     }
 
     @Override
-    public LiteralCommandNode<CommandSourceStack> getNode() {
+    public LiteralCommandNode<CommandSourceStack> execute() {
         return literal(getName())
                 .executes(context -> logError(context.getSource().getSender(), "Usage: /update <plugin> <version|latest>"))
                 .then(argument("plugin", StringArgumentType.string())
@@ -92,7 +92,6 @@ public class UpdateCommand extends CommandExecutor {
     private CompletableFuture<Suggestions> getVersionList(CommandContext<CommandSourceStack> context, SuggestionsBuilder builder) {
         try {
             String plugin = context.getInput().split(" ")[1];
-            System.out.println(plugin + " <------------ PLUGIN");
             DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
             DocumentBuilder db = dbf.newDocumentBuilder();
 
