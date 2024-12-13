@@ -21,9 +21,9 @@ public class ChatManager {
         if(!data.has("player")) data.put("player", "&f<%lives_color%%player%&f> ");
         if(!data.has("chat")) data.put("chat", "&f%message%");
         file.save();
-        FORMATS.put("party", data.getString("format.party"));
-        FORMATS.put("player", data.getString("format.player"));
-        FORMATS.put("chat", data.getString("format.chat"));
+        FORMATS.put("party", data.getString("party"));
+        FORMATS.put("player", data.getString("player"));
+        FORMATS.put("chat", data.getString("chat"));
     }
 
     public static String getFormat(String format) {
