@@ -20,48 +20,7 @@ import java.util.Map;
 
 public class NetworkUtils {
 
-    private static final Map<String, Webhook> WEBHOOKS = new HashMap<>();
 
-    public static Webhook addWebhook(String name, String id, String token) {
-        Webhook hook = new Webhook(id, token);
-        WEBHOOKS.put(name, hook);
-        return hook;
-    }
-
-    public static void sendWebhook(Webhook hook, String message) throws QuickException {
-        JSONObject data = new JSONObject();
-        data.put("content", message);
-        HttpRequest request = HttpRequest.newBuilder(URI.create(hook.url()))
-                .header("Content-Type", "application/json")
-                .POST(HttpRequest.BodyPublishers.ofString(data.toString()))
-                .build();
-
-        final HttpClient client = HttpClient.newHttpClient();
-
-        final HttpResponse<String> response;
-        try {
-            response = client.send(request, HttpResponse.BodyHandlers.ofString());
-        } catch (IOException | InterruptedException e) {
-            throw new QuickException("Failed to send http request!", e);
-        }
-
-        final int statusCode = response.statusCode();
-        if (!(statusCode >= 200 && statusCode < 300)) {
-            throw new QuickException("Http status code " + statusCode + "! Response was: '" + response.body() + "'.");
-        }
-
-        // From JDK 21 the HttpClient class extends AutoCloseable, but as we want to support Minecraft versions
-        //  that use JDK 17, where HttpClient doesn't extend AutoCloseable, we need to check if it's
-        //  an instance of AutoCloseable before trying to close it.
-        //noinspection ConstantValue
-        if (client instanceof AutoCloseable) {
-            try {
-                ((AutoCloseable) client).close();
-            } catch (Exception e) {
-                throw new IllegalStateException(e);
-            }
-        }
-    }
 
 
     public static InputStream downloadFile(String url, String... auth) {
@@ -100,13 +59,6 @@ public class NetworkUtils {
             out.close();
         } catch (IOException ex) {
             CoreUtils.logger().error(ex);
-        }
-    }
-
-    public record Webhook(String id, String token) {
-
-        public String url() {
-            return "https://discord.com/api/webhooks/" + id() + "/" + token();
         }
     }
 }
