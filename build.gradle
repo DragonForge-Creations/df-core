@@ -47,7 +47,7 @@ tasks.withType(JavaCompile).configureEach {
 }
 
 processResources {
-    def props = [version: plugin_version, group: rootProject.group]
+    def props = [version: "$plugin_version", group: rootProject.group]
     inputs.properties props
     filteringCharset 'UTF-8'
     filesMatching('paper-plugin.yml') {
