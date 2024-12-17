@@ -48,9 +48,10 @@ public abstract class CommandExecutor {
     }
 
     public int showUsage(CommandSender sender, String perm) {
-        return logError(sender, sender.hasPermission(perm) ? MessageUtils.getMessage("cmd." + getName() + ".usage") : MessageUtils.getMessage("cmd.error.no_perm"));
+        return logError(sender, (perm.equalsIgnoreCase("") || sender.hasPermission(perm)) ? MessageUtils.getMessage("cmd." + getName() + ".usage") : MessageUtils.getMessage("cmd.error.no_perm", perm));
 
     }
+
     public int showUsage(CommandContext<CommandSourceStack> context, String perm) {
         return showUsage(context.getSource().getSender(), perm);
     }
