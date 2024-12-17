@@ -1,0 +1,5 @@
+{
+  "chat": "&f%message%",
+  "party": "&a[P]",
+  "player": "&f<%lives_color%%player%&f> "
+}

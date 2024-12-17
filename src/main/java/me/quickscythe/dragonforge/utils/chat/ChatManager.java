@@ -15,15 +15,10 @@ public class ChatManager {
     private static final Map<String, String> FORMATS = new HashMap<>();
 
     public static void start() {
-        ConfigFile file = ConfigFileManager.getFile(CoreUtils.plugin(), "chat_format");
+        ConfigFile file = ConfigFileManager.getFile(CoreUtils.plugin(), "chat_format", "chat_format.json");
         JSONObject data = file.getData();
-        if(!data.has("party")) data.put("party", "&a[P]");
-        if(!data.has("player")) data.put("player", "&f<%lives_color%%player%&f> ");
-        if(!data.has("chat")) data.put("chat", "&f%message%");
-        file.save();
-        FORMATS.put("party", data.getString("party"));
-        FORMATS.put("player", data.getString("player"));
-        FORMATS.put("chat", data.getString("chat"));
+        for(String key : data.keySet())
+            FORMATS.put(key, data.getString(key));
     }
 
     public static String getFormat(String format) {
