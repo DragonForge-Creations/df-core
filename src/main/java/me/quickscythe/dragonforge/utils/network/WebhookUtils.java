@@ -21,20 +21,28 @@ public class WebhookUtils {
         return hook;
     }
 
-    public static Webhook get(String name){
+    public static Webhook get(String name) {
         return WEBHOOKS.getOrDefault(name, null);
+    }
+
+    public static void send(String webhookName, JSONObject data) throws QuickException {
+        send(get(webhookName), data);
+
     }
 
     public static void send(String webhookName, String message) throws QuickException {
         send(get(webhookName), message);
     }
+
     public static void send(Webhook hook, String message) throws QuickException {
         JSONObject data = new JSONObject();
         data.put("content", message);
-        HttpRequest request = HttpRequest.newBuilder(URI.create(hook.url()))
-                .header("Content-Type", "application/json")
-                .POST(HttpRequest.BodyPublishers.ofString(data.toString()))
-                .build();
+        send(hook, data);
+
+    }
+
+    public static void send(Webhook hook, JSONObject data) throws QuickException {
+        HttpRequest request = HttpRequest.newBuilder(URI.create(hook.url())).header("Content-Type", "application/json").POST(HttpRequest.BodyPublishers.ofString(data.toString())).build();
 
         final HttpClient client = HttpClient.newHttpClient();
 
