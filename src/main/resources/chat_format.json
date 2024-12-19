@@ -1,5 +1,0 @@
-{
-  "chat": "{\"text\":\"%message%\",\"color\":\"white\"}",
-  "party": "{\"text\":\"[P]\",\"color\":\"green\"}",
-  "player": "{\"text\":\"<%lives_color%%player%>\"}"
-}

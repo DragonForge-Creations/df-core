@@ -1,7 +1,6 @@
 package me.quickscythe.dragonforge.utils;
 
 
-import me.quickscythe.dragonforge.utils.chat.ChatManager;
 import me.quickscythe.dragonforge.utils.chat.Logger;
 import me.quickscythe.dragonforge.utils.chat.MessageUtils;
 import me.quickscythe.dragonforge.utils.chat.placeholder.PlaceholderUtils;
@@ -37,7 +36,6 @@ public class CoreUtils {
 
         PlaceholderUtils.registerPlaceholders();
         MessageUtils.start();
-        ChatManager.start();
 
 
     }
