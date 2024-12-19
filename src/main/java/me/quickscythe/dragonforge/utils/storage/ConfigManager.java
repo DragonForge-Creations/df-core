@@ -18,14 +18,14 @@ public abstract class ConfigManager {
     }
 
     public void start() {
-        CoreUtils.logger().log("Starting " + name + " ConfigManager...");
+        CoreUtils.logger().log("DataManager",  "Starting " + name + " ConfigManager...");
         config = ConfigFileManager.getFile(plugin, name);
 
     }
 
     public void end() {
 
-        CoreUtils.logger().log("Ending " + name + " ConfigManager...");
+        CoreUtils.logger().log("DataManager",  "Ending " + name + " ConfigManager...");
         config.save();
     }
 

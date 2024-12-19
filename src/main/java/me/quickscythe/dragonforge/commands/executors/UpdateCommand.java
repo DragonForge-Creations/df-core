@@ -58,7 +58,7 @@ public class UpdateCommand extends CommandExecutor {
                                     String filename = plugin + "-" + version + ".jar";
                                     String url = "https://ci.vanillaflux.com/job/" + plugin + "/lastSuccessfulBuild/artifact/build/libs/" + filename;
                                     //Downloading <plugin> <version>...
-                                    CoreUtils.logger().log(Logger.LogLevel.INFO, text("Downloading ", NamedTextColor.WHITE).append(getStylizedName(plugin, version)).append(text("...", NamedTextColor.YELLOW)), context.getSource().getSender());
+                                    CoreUtils.logger().log(Logger.LogLevel.INFO, "Updater", text("Downloading ", NamedTextColor.WHITE).append(getStylizedName(plugin, version)).append(text("...", NamedTextColor.YELLOW)), context.getSource().getSender());
                                     InputStream in = NetworkUtils.downloadFile(url, props[0], props[1]);
                                     if (in != null) {
                                         try {
@@ -68,20 +68,20 @@ public class UpdateCommand extends CommandExecutor {
                                                 String name = file.getName();
                                                 if (name.startsWith(plugin) && file.isFile()) {
                                                     //Found existing file.
-                                                    CoreUtils.logger().log(Logger.LogLevel.INFO, text("Found existing file.").color(NamedTextColor.YELLOW), context.getSource().getSender());
+                                                    CoreUtils.logger().log(Logger.LogLevel.INFO, "Updater", text("Found existing file.").color(NamedTextColor.YELLOW), context.getSource().getSender());
                                                     String old_version = name.replaceAll(plugin + "-", "").replaceAll(".jar", "");
                                                     Files.deleteIfExists(file.toPath());
                                                     //<plugin> <version> has veen deleted.
-                                                    CoreUtils.logger().log(Logger.LogLevel.INFO, text().content("").append(getStylizedName(plugin, old_version)).append(text(" has been deleted.", NamedTextColor.YELLOW)).build(), context.getSource().getSender());
+                                                    CoreUtils.logger().log(Logger.LogLevel.INFO, "Updater", text().content("").append(getStylizedName(plugin, old_version)).append(text(" has been deleted.", NamedTextColor.YELLOW)).build(), context.getSource().getSender());
                                                 }
                                             }
                                             NetworkUtils.saveStream(in, new FileOutputStream("plugins/" + filename));
                                             //Finished downloading <plugin> <name>.
-                                            CoreUtils.logger().log(Logger.LogLevel.INFO, text().content("Finished downloading ").color(NamedTextColor.YELLOW).append(getStylizedName(plugin, version)).append(text(".", NamedTextColor.WHITE)).build(), context.getSource().getSender());
+                                            CoreUtils.logger().log(Logger.LogLevel.INFO, "Updater", text().content("Finished downloading ").color(NamedTextColor.YELLOW).append(getStylizedName(plugin, version)).append(text(".", NamedTextColor.WHITE)).build(), context.getSource().getSender());
                                         } catch (FileNotFoundException e) {
-                                            CoreUtils.logger().log(Logger.LogLevel.ERROR, e);
+                                            CoreUtils.logger().log(Logger.LogLevel.ERROR, "Updater", e);
                                         } catch (IOException e) {
-                                            CoreUtils.logger().log(Logger.LogLevel.ERROR, "ERROR");
+                                            CoreUtils.logger().log(Logger.LogLevel.ERROR, "Updater", "ERROR");
                                             throw new RuntimeException(e);
                                         }
                                     }

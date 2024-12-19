@@ -17,7 +17,7 @@ public class DataManager {
 
     public static void init(JavaPlugin plugin) {
         dataFolder = plugin.getDataFolder();
-        if (!dataFolder.exists()) CoreUtils.logger().log("Creating data folder: " + dataFolder.mkdir());
+        if (!dataFolder.exists()) CoreUtils.logger().log("DataManager",  "Creating data folder: " + dataFolder.mkdir());
     }
 
 

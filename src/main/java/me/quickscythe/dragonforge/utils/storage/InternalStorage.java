@@ -103,12 +103,12 @@ public class InternalStorage {
 
         try {
             File file = new File(DataManager.getDataFolder(), fileName);
-            CoreUtils.logger().logger().info("Checking if file exists: {}", file.getAbsolutePath());
+            CoreUtils.logger().logger().info("[DataManager] Checking if file exists: {}", file.getAbsolutePath());
             if (!(file.getParentFile() == null)) if (!file.getParentFile().exists()) {
-                CoreUtils.logger().logger().info("Creating directories {}: {}", file.getParentFile().getPath(), file.getParentFile().mkdirs());
+                CoreUtils.logger().logger().info("[DataManager] Creating directories {}: {}", file.getParentFile().getPath(), file.getParentFile().mkdirs());
             }
             if (!file.exists())
-                CoreUtils.logger().logger().info("Creating file {}: {}", file.getName(), file.createNewFile());
+                CoreUtils.logger().logger().info("[DataManager] Creating file {}: {}", file.getName(), file.createNewFile());
             FileWriter f2 = new FileWriter(file, false);
             Object object = get(path);
             String context;
@@ -121,10 +121,10 @@ public class InternalStorage {
             }
 
 //            System.out.println(context);
-            CoreUtils.logger().logger().info("Writing to file: {}", fileName);
+            CoreUtils.logger().logger().info("[DataManager] Writing to file: {}", fileName);
             f2.write(context);
             f2.close();
-            CoreUtils.logger().logger().info("File written: {}", fileName);
+            CoreUtils.logger().logger().info("[DataManager] File written: {}", fileName);
         } catch (Exception e) {
             CoreUtils.logger().logger().error("There was an error saving {}", fileName, e);
         }
@@ -136,9 +136,9 @@ public class InternalStorage {
     }
 
     public Object load(File file) {
-        CoreUtils.logger().logger().info("Loading {}", file.getAbsolutePath());
+        CoreUtils.logger().logger().info("[DataManager] Loading {}", file.getAbsolutePath());
         try {
-            CoreUtils.logger().logger().info("File exists: {}", file.exists());
+            CoreUtils.logger().logger().info("[DataManager] File exists: {}", file.exists());
             Scanner scanner = new Scanner(file);
             StringBuilder sb = new StringBuilder();
             while (scanner.hasNextLine()) sb.append(scanner.nextLine());
@@ -148,7 +148,7 @@ public class InternalStorage {
             if(key.startsWith(CoreUtils.plugin().getName())){
                 key = key.substring(CoreUtils.plugin().getName().length()+1);
             }
-            CoreUtils.logger().logger().info("Loading {} into {}", file.getName(), key);
+            CoreUtils.logger().logger().info("[DataManager] Loading {} into {}", file.getName(), key);
             String context = sb.toString();
 
             Object o = context.isEmpty() ? null : context;
