@@ -5,6 +5,7 @@ import json2.JSONObject;
 import me.quickscythe.dragonforge.utils.CoreUtils;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.serializer.gson.GsonComponentSerializer;
+import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -73,6 +74,10 @@ public class MessageUtils {
 
     public static Component deserialize(String json){
         return GsonComponentSerializer.gson().deserialize(json);
+    }
+
+    public static String plainText(Component component){
+        return PlainTextComponentSerializer.plainText().serialize(component);
     }
 
     public static String serialize(Component component){
