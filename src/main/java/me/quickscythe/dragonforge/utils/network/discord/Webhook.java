@@ -1,4 +1,4 @@
-package me.quickscythe.dragonforge.utils.network;
+package me.quickscythe.dragonforge.utils.network.discord;
 
 public record Webhook(String id, String token) {
 

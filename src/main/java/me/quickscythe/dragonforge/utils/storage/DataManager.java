@@ -2,6 +2,7 @@ package me.quickscythe.dragonforge.utils.storage;
 
 
 import me.quickscythe.dragonforge.utils.CoreUtils;
+import me.quickscythe.dragonforge.utils.network.discord.WebhookManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
@@ -18,6 +19,7 @@ public class DataManager {
     public static void init(JavaPlugin plugin) {
         dataFolder = plugin.getDataFolder();
         if (!dataFolder.exists()) CoreUtils.logger().log("DataManager",  "Creating data folder: " + dataFolder.mkdir());
+        registerConfigManager(new WebhookManager(plugin));
     }
 
 

@@ -30,7 +30,6 @@ public abstract class ConfigManager {
     }
 
     public void end() {
-
         CoreUtils.logger().log("DataManager",  "Ending " + name + " ConfigManager...");
         config.save();
     }

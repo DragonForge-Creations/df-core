@@ -1,7 +1,9 @@
-package me.quickscythe.dragonforge.utils.network;
+package me.quickscythe.dragonforge.utils.network.discord;
 
 import json2.JSONObject;
 import me.quickscythe.dragonforge.exceptions.QuickException;
+import me.quickscythe.dragonforge.utils.storage.ConfigManager;
+import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.IOException;
 import java.net.URI;
@@ -11,37 +13,52 @@ import java.net.http.HttpResponse;
 import java.util.HashMap;
 import java.util.Map;
 
-public class WebhookUtils {
+public class WebhookManager extends ConfigManager {
+    private final Map<String, Webhook> WEBHOOKS = new HashMap<>();
 
-    private static final Map<String, Webhook> WEBHOOKS = new HashMap<>();
+    public WebhookManager(JavaPlugin plugin) {
+        super(plugin, "webhooks");
+    }
 
-    public static Webhook add(String name, String id, String token) {
+    @Override
+    public void end() {
+        WEBHOOKS.forEach((name, webhook) -> {
+            JSONObject data = new JSONObject();
+            data.put("id", webhook.id());
+            data.put("token", webhook.token());
+            config().getData().put(name, data);
+        });
+        super.end();
+
+    }
+
+    public Webhook add(String name, String id, String token) {
         Webhook hook = new Webhook(id, token);
         WEBHOOKS.put(name, hook);
         return hook;
     }
 
-    public static Webhook get(String name) {
+    public Webhook get(String name) {
         return WEBHOOKS.getOrDefault(name, null);
     }
 
-    public static void send(String webhookName, JSONObject data) throws QuickException {
+    public void send(String webhookName, JSONObject data) throws QuickException {
         send(get(webhookName), data);
 
     }
 
-    public static void send(String webhookName, String message) throws QuickException {
+    public void send(String webhookName, String message) throws QuickException {
         send(get(webhookName), message);
     }
 
-    public static void send(Webhook hook, String message) throws QuickException {
+    public void send(Webhook hook, String message) throws QuickException {
         JSONObject data = new JSONObject();
         data.put("content", message);
         send(hook, data);
 
     }
 
-    public static void send(Webhook hook, JSONObject data) throws QuickException {
+    public void send(Webhook hook, JSONObject data) throws QuickException {
         HttpRequest request = HttpRequest.newBuilder(URI.create(hook.url())).header("Content-Type", "application/json").POST(HttpRequest.BodyPublishers.ofString(data.toString())).build();
 
         final HttpClient client = HttpClient.newHttpClient();
