@@ -27,7 +27,11 @@ public class PlaceholderUtils {
     }
 
     public static Component replace(Player player, Component component) {
-        return MessageUtils.deserialize(replace(player, MessageUtils.serialize(component)));
+        return component.replaceText(builder -> {
+            for(Entry<String, PlaceholderWorker> e : placeholders.entrySet()){
+                builder.match(e.getKey()).replacement(e.getValue().run(player));
+            }
+        });
     }
 
     public static String replace(Player player, String string) {

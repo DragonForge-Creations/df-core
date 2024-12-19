@@ -1,5 +1,5 @@
 {
-  "chat": "&f%message%",
-  "party": "&a[P]",
-  "player": "&f<%lives_color%%player%&f> "
+  "chat": "{\"text\":\"%message%\",\"color\":\"white\"}",
+  "party": "{\"text\":\"[P]\",\"color\":\"green\"}",
+  "player": "{\"text\":\"<%lives_color%%player%>\"}"
 }
