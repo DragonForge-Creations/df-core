@@ -67,6 +67,14 @@ public class MessageUtils {
         addMessage("cmd.error.no_command", "{\"text\":\"Sorry, couldn't find the command \\\"[0]\\\". Please check your spelling and try again.\",\"color\":\"red\"}");
     }
 
+    public static Component deserialize(JSONObject json){
+        return deserialize(json.toString());
+    }
+
+    public static Component deserialize(String json){
+        return GsonComponentSerializer.gson().deserialize(json);
+    }
+
     public static Component getMessage(String key, Object... replacements){
 
         String a = getMessageRaw(key);
