@@ -2,13 +2,11 @@ package me.quickscythe.dragonforge.utils;
 
 
 import me.quickscythe.dragonforge.utils.chat.ChatManager;
-import me.quickscythe.dragonforge.utils.chat.DebugUtils;
 import me.quickscythe.dragonforge.utils.chat.Logger;
 import me.quickscythe.dragonforge.utils.chat.MessageUtils;
 import me.quickscythe.dragonforge.utils.chat.placeholder.PlaceholderUtils;
 import me.quickscythe.dragonforge.utils.config.ConfigFile;
 import me.quickscythe.dragonforge.utils.config.ConfigFileManager;
-import me.quickscythe.dragonforge.utils.gui.GuiManager;
 import me.quickscythe.dragonforge.utils.storage.DataManager;
 import org.bukkit.Bukkit;
 import org.bukkit.EntityEffect;
@@ -20,14 +18,8 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.awt.*;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.Base64;
 import java.util.List;
 import java.util.Map;
 
@@ -42,7 +34,6 @@ public class CoreUtils {
         logger = new Logger(plugin);
         DataManager.init(plugin);
         config = ConfigFileManager.getFile(plugin, "config", "config.json");
-        GuiManager.init();
 
         PlaceholderUtils.registerPlaceholders();
         MessageUtils.start();
@@ -64,17 +55,7 @@ public class CoreUtils {
         return config;
     }
 
-    public static List<String> colorizeStringList(List<String> stringList) {
-        return colorizeStringList((String[]) stringList.toArray());
-    }
 
-    public static List<String> colorizeStringList(String[] stringList) {
-        List<String> ret = new ArrayList<>();
-        for (String s : stringList) {
-            ret.add(MessageUtils.colorize(s));
-        }
-        return ret;
-    }
 
     public static void playTotemAnimation(Player player, int customModelData) {
         ItemStack totem = new ItemStack(Material.TOTEM_OF_UNDYING);
@@ -97,7 +78,6 @@ public class CoreUtils {
     }
 
     public static Location decryptLocation(String s) {
-        debug("Decrypting Location: " + s);
         if (s.startsWith("location:")) s = s.replaceAll("location:", "");
 
         if (s.contains(",")) s = s.replaceAll(",", ".");
@@ -127,17 +107,6 @@ public class CoreUtils {
         if (blue > 255) blue = 255;
 
         return new Color(red, green, blue);
-    }
-
-
-    public static void debug(Object obj) {
-        debug(obj + "");
-    }
-
-    public static void debug(String message) {
-
-        DebugUtils.debug(message);
-
     }
 
     public static PageResult pagify(List<Object> things, int items) {
@@ -299,57 +268,5 @@ public class CoreUtils {
 
         player.updateInventory();
         return true;
-    }
-
-
-    public static boolean downloadFile(String url, String filename, String... auth) {
-
-        boolean success = true;
-        InputStream in = null;
-        FileOutputStream out = null;
-
-        try {
-
-            URL myUrl = new URL(url);
-            HttpURLConnection conn = (HttpURLConnection) myUrl.openConnection();
-            conn.setDoOutput(true);
-            conn.setReadTimeout(30000);
-            conn.setConnectTimeout(30000);
-            conn.setUseCaches(false);
-            conn.setAllowUserInteraction(false);
-            conn.setRequestProperty("Content-Type", "application/json");
-            conn.setRequestProperty("Accept-Charset", "UTF-8");
-            conn.setRequestMethod("GET");
-
-            if (auth != null && auth.length >= 2) {
-                String userCredentials = auth[0].trim() + ":" + auth[1].trim();
-                String basicAuth = "Basic " + new String(Base64.getEncoder().encode(userCredentials.getBytes()));
-                conn.setRequestProperty("Authorization", basicAuth);
-            }
-            in = conn.getInputStream();
-            out = new FileOutputStream(filename);
-            int c;
-            byte[] b = new byte[1024];
-            while ((c = in.read(b)) != -1) out.write(b, 0, c);
-
-        } catch (Exception ex) {
-            MessageUtils.log(("There was an error downloading " + filename + ". Check console for details."));
-            ex.printStackTrace();
-            success = false;
-        } finally {
-            if (in != null) try {
-                in.close();
-            } catch (IOException e) {
-                MessageUtils.log(("There was an error downloading " + filename + ". Check console for details."));
-                e.printStackTrace();
-            }
-            if (out != null) try {
-                out.close();
-            } catch (IOException e) {
-                MessageUtils.log(("There was an error downloading " + filename + ". Check console for details."));
-                e.printStackTrace();
-            }
-        }
-        return success;
     }
 }

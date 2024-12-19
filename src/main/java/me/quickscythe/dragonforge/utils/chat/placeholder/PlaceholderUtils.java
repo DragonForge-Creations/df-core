@@ -60,13 +60,6 @@ public class PlaceholderUtils {
             String icon = tag.split("pper:")[1].split("%")[0];
             tag = tag.replaceAll("%upper:" + icon + "%", icon.contains("%") ? replace(player, icon).toUpperCase() : icon.toUpperCase());
         }
-        while (tag.contains("%fade:")) {
-            String from = tag.split(":")[1];
-            String to = tag.split(":")[2];
-            String s = tag.split(":")[3].split("%")[0];
-
-            tag = tag.replaceFirst("%fade:" + from + ":" + to + ":" + s + "%", MessageUtils.fade(from, to, s));
-        }
         return tag;
     }
 

@@ -4,8 +4,6 @@ import json2.JSONObject;
 import me.quickscythe.dragonforge.utils.CoreUtils;
 import me.quickscythe.dragonforge.utils.config.ConfigFile;
 import me.quickscythe.dragonforge.utils.config.ConfigFileManager;
-import me.quickscythe.dragonforge.utils.storage.DataManager;
-import org.bukkit.configuration.file.FileConfiguration;
 
 import java.util.HashMap;
 import java.util.Map;

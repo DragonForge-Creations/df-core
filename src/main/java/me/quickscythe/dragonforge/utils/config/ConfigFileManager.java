@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 
 public class ConfigFileManager {
@@ -79,7 +80,7 @@ public class ConfigFileManager {
     public static ConfigFile getFile(JavaPlugin plugin, String filename, String resource) {
 
         JSONObject defaults = new JSONObject();
-        try (BufferedReader reader = new BufferedReader(new InputStreamReader(plugin.getResource(resource)))) {
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(Objects.requireNonNull(plugin.getResource(resource))))) {
             StringBuilder data = new StringBuilder();
             String line;
             while ((line = reader.readLine()) != null) {

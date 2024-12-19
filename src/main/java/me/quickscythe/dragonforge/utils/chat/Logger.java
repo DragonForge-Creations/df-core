@@ -66,8 +66,8 @@ public class Logger {
     public enum LogLevel {
         INFO("[INFO]", "#438df2"), WARN("[WARN]", NamedTextColor.YELLOW), ERROR("[ERROR]", NamedTextColor.RED), TRACE("[TRACE]"), DEBUG("[DEBUG]");
 
-        String tag;
-        TextColor color;
+        final String tag;
+        final TextColor color;
 
         LogLevel(String tag, String color) {
             this.tag = tag;
