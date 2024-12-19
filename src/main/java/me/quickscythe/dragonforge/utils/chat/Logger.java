@@ -6,10 +6,8 @@ import net.kyori.adventure.text.TextComponent;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextColor;
 import net.kyori.adventure.text.logger.slf4j.ComponentLogger;
-import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer;
 import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.Plugin;
-import org.jetbrains.annotations.NotNull;
 
 import static net.kyori.adventure.text.Component.text;
 
@@ -21,46 +19,43 @@ public class Logger {
         LOG = plugin.getComponentLogger();
     }
 
-    public void log(String msg) {
-        log(LogLevel.INFO, msg);
+    public void log(String tag, String msg) {
+        log(LogLevel.INFO, tag, msg);
     }
 
-    public void log(LogLevel level, String msg) {
-        log(level, msg, null);
+    public void log(LogLevel level, String tag, String msg) {
+        log(level, tag, msg, null);
     }
 
-    public void log(LogLevel level, TextComponent msg) {
-        log(level, msg, null);
+    public void log(LogLevel level, String tag, TextComponent msg) {
+        log(level, tag, msg, null);
     }
 
-    public void log(LogLevel level, Exception ex) {
+    public void log(LogLevel level, String tag, Exception ex) {
         StringBuilder trace = new StringBuilder();
         for (StackTraceElement el : ex.getStackTrace())
             trace.append(el).append("\n");
-        log(level, ex.getMessage() + ": " + trace.toString(), null);
+        log(level, tag, ex.getMessage() + ": " + trace, null);
     }
 
-    public void log(LogLevel level, String msg, CommandSender feedback) {
-        log(level, Component.text(msg), feedback);
+    public void log(LogLevel level, String tag, String msg, CommandSender feedback) {
+        log(level, tag, Component.text(msg), feedback);
     }
-    public void log(LogLevel level, TextComponent msg, CommandSender feedback) {
+
+    public void log(LogLevel level, String tag, TextComponent msg, CommandSender feedback) {
         level = level == null ? LogLevel.INFO : level;
-//        StringBuilder builder = new StringBuilder();
-//        builder.append(msg.content());
-//        loopComponents(msg, builder);
-//        LOG.info(level.getTagString() + " " + builder.toString());
-        switch(level){
+        switch (level) {
             case WARN -> LOG.warn(msg);
             case DEBUG -> LOG.debug(msg);
             case ERROR -> LOG.error(msg);
             case TRACE -> LOG.trace(msg);
             default -> LOG.info(msg);
         }
-        if (feedback != null) feedback.sendMessage(level.getTag().append(text(" ")).append(msg));
+        if (feedback != null) feedback.sendMessage(level.getTag().append(text(" [" + tag + "] ")).append(msg));
     }
 
-    public void error(Exception ex) {
-        log(LogLevel.ERROR, ex);
+    public void error(String tag, Exception ex) {
+        log(LogLevel.ERROR, tag, ex);
     }
 
     public ComponentLogger logger() {
