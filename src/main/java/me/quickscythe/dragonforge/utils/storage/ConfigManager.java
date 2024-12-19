@@ -17,6 +17,12 @@ public abstract class ConfigManager {
         this.name = name;
     }
 
+    public ConfigManager(JavaPlugin plugin, String name, String resource) {
+        this.plugin = plugin;
+        this.name = name;
+        config = ConfigFileManager.getFile(plugin, name, resource);
+    }
+
     public void start() {
         CoreUtils.logger().log("DataManager",  "Starting " + name + " ConfigManager...");
         config = ConfigFileManager.getFile(plugin, name);
