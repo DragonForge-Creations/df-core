@@ -21,7 +21,12 @@ public class WebhookManager extends ConfigManager {
 
     public WebhookManager(JavaPlugin plugin) {
         super(plugin, "webhooks");
-        for(String key : config().getData().keySet()){
+    }
+
+    @Override
+    public void start() {
+        super.start();
+        if (!config().getData().isEmpty()) for (String key : config().getData().keySet()) {
             JSONObject webhook = config().getData().getJSONObject(key);
             add(key, webhook.getString("id"), webhook.getString("token"));
             CoreUtils.logger().log("WebhookManager", "Added webhook " + key);
