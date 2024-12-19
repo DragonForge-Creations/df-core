@@ -1,7 +1,9 @@
 package me.quickscythe.dragonforge.utils.network.discord;
 
+import json2.JSONArray;
 import json2.JSONObject;
 import me.quickscythe.dragonforge.exceptions.QuickException;
+import me.quickscythe.dragonforge.utils.network.discord.embed.Embed;
 import me.quickscythe.dragonforge.utils.storage.ConfigManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -42,9 +44,18 @@ public class WebhookManager extends ConfigManager {
         return WEBHOOKS.getOrDefault(name, null);
     }
 
+    public void send(String webhookName, Embed embed) throws QuickException {
+        send(get(webhookName), embed);
+    }
+
+    public void send(Webhook hook, Embed embed) throws QuickException {
+        JSONObject data = new JSONObject();
+        data.put("embeds", new JSONArray().put(embed.json()));
+        send(hook, data);
+    }
+
     public void send(String webhookName, JSONObject data) throws QuickException {
         send(get(webhookName), data);
-
     }
 
     public void send(String webhookName, String message) throws QuickException {
