@@ -45,11 +45,11 @@ public class Logger {
     public void log(LogLevel level, String tag, TextComponent msg, CommandSender feedback) {
         level = level == null ? LogLevel.INFO : level;
         switch (level) {
-            case WARN -> LOG.warn(msg);
-            case DEBUG -> LOG.debug(msg);
-            case ERROR -> LOG.error(msg);
-            case TRACE -> LOG.trace(msg);
-            default -> LOG.info(msg);
+            case WARN -> LOG.warn("[{}] {}", tag, msg);
+            case DEBUG -> LOG.debug("[{}] {}", tag, msg);
+            case ERROR -> LOG.error("[{}] {}", tag, msg);
+            case TRACE -> LOG.trace("[{}] {}", tag, msg);
+            default -> LOG.info("[{}] {}", tag, msg);
         }
         if (feedback != null) feedback.sendMessage(level.getTag().append(text(" [" + tag + "] ")).append(msg));
     }
