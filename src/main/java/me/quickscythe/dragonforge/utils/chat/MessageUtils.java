@@ -3,6 +3,8 @@ package me.quickscythe.dragonforge.utils.chat;
 
 import json2.JSONObject;
 import me.quickscythe.dragonforge.utils.CoreUtils;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.serializer.gson.GsonComponentSerializer;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -60,20 +62,20 @@ public class MessageUtils {
     }
 
     private static void createDefaultMessages() {
-        addMessage("cmd.error.no_player", "&cSorry \"[0]\" couldn't be find. If the player is offline their username must be typed exactly.");
-        addMessage("cmd.error.no_perm", "&cSorry, you don't have the permission to run that command.");
-        addMessage("gui.error.not_exist", "&cThere was an error opening that GUI. Does it exist?");
-        addMessage("cmd.error.no_command", "&cSorry, couldn't find the command \"[0]\". Please check your spelling and try again.");
+        addMessage("cmd.error.no_player", "{\"text\":\"Sorry \\\"[0]\\\" couldn't be find. If the player is offline their username must be typed exactly.\",\"color\":\"red\"}");
+        addMessage("cmd.error.no_perm", "{\"text\":\"Sorry, you don't have the permission to run that command.\",\"color\":\"red\"}");
+        addMessage("cmd.error.no_command", "{\"text\":\"Sorry, couldn't find the command \\\"[0]\\\". Please check your spelling and try again.\",\"color\":\"red\"}");
     }
 
-    public static String getMessage(String key, Object... replacements){
-        String a = getMessage(key);
+    public static Component getMessage(String key, Object... replacements){
+
+        String a = getMessageRaw(key);
         for(int i=0;i!=replacements.length;i++)
             a = a.replaceFirst("\\[" + i + "]", replacements[i].toString());
-        return a;
+        return GsonComponentSerializer.gson().deserialize(a);
     }
 
-    private static String getMessage(String key) {
+    private static String getMessageRaw(String key) {
         return messages.has(key) ? messages.getString(key) : key;
     }
 }

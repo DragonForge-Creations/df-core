@@ -13,6 +13,8 @@ public final class Core extends JavaPlugin {
         CoreUtils.init(this);
         CommandManager.init();
 
+        getServer().getConsoleSender().sendMessage(MessageUtils.getMessage("cmd.error.no_player"));
+
     }
 
     @Override
