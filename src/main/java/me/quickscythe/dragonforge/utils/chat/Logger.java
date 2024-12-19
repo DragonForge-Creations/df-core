@@ -27,7 +27,7 @@ public class Logger {
         log(level, tag, msg, null);
     }
 
-    public void log(LogLevel level, String tag, TextComponent msg) {
+    public void log(LogLevel level, String tag, Component msg) {
         log(level, tag, msg, null);
     }
 
@@ -42,7 +42,7 @@ public class Logger {
         log(level, tag, Component.text(msg), feedback);
     }
 
-    public void log(LogLevel level, String tag, TextComponent msg, CommandSender feedback) {
+    public void log(LogLevel level, String tag, Component msg, CommandSender feedback) {
         level = level == null ? LogLevel.INFO : level;
         switch (level) {
             case WARN -> LOG.warn("[{}] {}", tag, msg);
@@ -84,7 +84,7 @@ public class Logger {
             this.color = NamedTextColor.GRAY;
         }
 
-        public TextComponent getTag() {
+        public Component getTag() {
             return text().content("").color(NamedTextColor.WHITE).append(text(tag, color)).build();
         }
 
