@@ -3,6 +3,7 @@ package me.quickscythe.dragonforge.utils.network.discord;
 import json2.JSONArray;
 import json2.JSONObject;
 import me.quickscythe.dragonforge.exceptions.QuickException;
+import me.quickscythe.dragonforge.utils.CoreUtils;
 import me.quickscythe.dragonforge.utils.network.discord.embed.Embed;
 import me.quickscythe.dragonforge.utils.storage.ConfigManager;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -20,6 +21,11 @@ public class WebhookManager extends ConfigManager {
 
     public WebhookManager(JavaPlugin plugin) {
         super(plugin, "webhooks");
+        for(String key : config().getData().keySet()){
+            JSONObject webhook = config().getData().getJSONObject(key);
+            add(key, webhook.getString("id"), webhook.getString("token"));
+            CoreUtils.logger().log("WebhookManager", "Added webhook " + key);
+        }
     }
 
     @Override
