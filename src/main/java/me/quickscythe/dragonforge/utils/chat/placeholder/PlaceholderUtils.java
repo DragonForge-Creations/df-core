@@ -1,6 +1,7 @@
 package me.quickscythe.dragonforge.utils.chat.placeholder;
 
 import me.quickscythe.dragonforge.utils.chat.MessageUtils;
+import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -23,6 +24,10 @@ public class PlaceholderUtils {
 
     public static void registerPlaceholder(String key, PlaceholderWorker worker) {
         placeholders.put("%" + key + "%", worker);
+    }
+
+    public static Component replace(Player player, Component component) {
+        return MessageUtils.deserialize(replace(player, MessageUtils.serialize(component)));
     }
 
     public static String replace(Player player, String string) {

@@ -75,6 +75,10 @@ public class MessageUtils {
         return GsonComponentSerializer.gson().deserialize(json);
     }
 
+    public static String serialize(Component component){
+        return GsonComponentSerializer.gson().serialize(component);
+    }
+
     public static Component getMessage(String key, Object... replacements){
 
         String a = getMessageRaw(key);
