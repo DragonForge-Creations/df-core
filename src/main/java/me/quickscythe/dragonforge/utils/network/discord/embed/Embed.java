@@ -3,9 +3,19 @@ package me.quickscythe.dragonforge.utils.network.discord.embed;
 import json2.JSONArray;
 import json2.JSONObject;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.TimeZone;
+
 public class Embed {
 
     private final JSONObject data = new JSONObject();
+
+    public Embed() {
+        data.put("type", "rich");
+        timestamp(new Date());
+    }
 
     public Embed title(String title) {
         data.put("title", title);
@@ -27,8 +37,12 @@ public class Embed {
         return this;
     }
 
-    public Embed timestamp(String timestamp) {
-        data.put("timestamp", timestamp);
+    public Embed timestamp(Date date) {
+        TimeZone tz = TimeZone.getTimeZone("UTC");
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm'Z'"); // Quoted "Z" to indicate UTC, no timezone offset
+        df.setTimeZone(tz);
+        String iso = df.format(date);
+        data.put("timestamp", iso);
         return this;
     }
 
