@@ -6,6 +6,7 @@ import com.sun.net.httpserver.HttpServer;
 import me.quickscythe.dragonforge.utils.CoreUtils;
 import me.quickscythe.dragonforge.utils.network.NetworkUtils;
 import me.quickscythe.dragonforge.utils.storage.DataManager;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 import java.io.*;
@@ -53,9 +54,13 @@ public class ResourcePackServer {
         String[] props = new String[]{CoreUtils.config().getData().getString("jenkins_user"), CoreUtils.config().getData().getString("jenkins_password"), CoreUtils.config().getData().getString("jenkins_url"), CoreUtils.config().getData().getString("jenkins_api_endpoint")};
         try {
             NetworkUtils.saveStream(NetworkUtils.downloadFile(url, props[0], props[1]), new FileOutputStream(pack));
-        } catch (FileNotFoundException e) {
+            for (Player player : Bukkit.getServer().getOnlinePlayers()) {
+                setPack(player);
+            }
+        } catch (NoSuchAlgorithmException | IOException e) {
             throw new RuntimeException(e);
         }
+
     }
 
     public File pack() {
