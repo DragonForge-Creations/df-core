@@ -62,9 +62,11 @@ public class ResourcePackServer {
             try (BufferedInputStream bis = new BufferedInputStream(in)) {
                 while ((count = bis.read(buffer)) > 0) {
                     digest.update(buffer, 0, count);
+                    out.write(buffer, 0, count);
                 }
             }
-            NetworkUtils.saveStream(in, out);
+            out.close();
+//            NetworkUtils.saveStream(in, out);
 
             hash = digest.digest();
             for (Player player : Bukkit.getServer().getOnlinePlayers()) {
