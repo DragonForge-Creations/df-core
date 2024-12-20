@@ -23,6 +23,7 @@ public class ResourcePackServer {
     private final File pack;
     private final int port;
     String url = "";
+    byte[] hash = new byte[0];
 
     public ResourcePackServer(int port) {
         pack = new File(DataManager.getDataFolder(), "resources/pack.zip");
@@ -53,7 +54,19 @@ public class ResourcePackServer {
         if (!enabled()) return;
         String[] props = new String[]{CoreUtils.config().getData().getString("jenkins_user"), CoreUtils.config().getData().getString("jenkins_password"), CoreUtils.config().getData().getString("jenkins_url"), CoreUtils.config().getData().getString("jenkins_api_endpoint")};
         try {
-            NetworkUtils.saveStream(NetworkUtils.downloadFile(url, props[0], props[1]), new FileOutputStream(pack));
+            InputStream in = NetworkUtils.downloadFile(url, props[0], props[1]);
+            FileOutputStream out = new FileOutputStream(pack);
+            byte[] buffer = new byte[8192];
+            int count;
+            MessageDigest digest = MessageDigest.getInstance("SHA-1");
+            try (BufferedInputStream bis = new BufferedInputStream(in)) {
+                while ((count = bis.read(buffer)) > 0) {
+                    digest.update(buffer, 0, count);
+                }
+            }
+            NetworkUtils.saveStream(in, out);
+
+            hash = digest.digest();
             for (Player player : Bukkit.getServer().getOnlinePlayers()) {
                 setPack(player);
             }
@@ -69,16 +82,7 @@ public class ResourcePackServer {
 
     public void setPack(Player player) throws IOException, NoSuchAlgorithmException {
         String url = "http://localhost:" + port + "/resources.zip";
-        byte[] buffer = new byte[8192];
-        int count;
-        MessageDigest digest = MessageDigest.getInstance("SHA-1");
-        try (BufferedInputStream bis = new BufferedInputStream(NetworkUtils.downloadFile(url))) {
-            while ((count = bis.read(buffer)) > 0) {
-                digest.update(buffer, 0, count);
-            }
-        }
 
-        byte[] hash = digest.digest();
         player.setResourcePack(url, hash, text("This pack is required for the best experience on this server."));
     }
 

@@ -30,6 +30,7 @@ public class CoreUtils {
     private static JavaPlugin plugin;
     private static ResourcePackServer packserver;
 
+
     public static void init(JavaPlugin plugin) {
         CoreUtils.plugin = plugin;
         logger = new Logger(plugin);
