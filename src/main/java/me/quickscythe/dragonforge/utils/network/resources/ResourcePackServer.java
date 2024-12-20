@@ -76,7 +76,6 @@ public class ResourcePackServer {
                 Component msg = text("Resource pack updated. Click here to reload.");
                 msg = msg.clickEvent(ClickEvent.clickEvent(ClickEvent.Action.RUN_COMMAND, "/resourcepack reload"));
                 player.sendMessage(msg);
-                setPack(player);
             }
         } catch (NoSuchAlgorithmException | IOException e) {
             throw new RuntimeException(e);
