@@ -45,6 +45,7 @@ public class ResourcePackServer {
 
     public void setUrl(String url) {
         this.url = url;
+        updatePack();
     }
 
     public void updatePack() {
