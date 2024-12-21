@@ -2,5 +2,6 @@
   "jenkins_url": "https://ci.vanillaflux.com/",
   "jenkins_user": "dragonforge",
   "jenkins_password": "t?3Ni8b8pABCByXE",
-  "jenkins_api_endpoint": "/api/xml"
+  "jenkins_api_endpoint": "/api/xml",
+  "serverIp": "127.0.0.1"
 }

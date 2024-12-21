@@ -88,7 +88,7 @@ public class ResourcePackServer {
     }
 
     public void setPack(Player player) throws IOException, NoSuchAlgorithmException {
-        String url = "http://localhost:" + port + "/resources.zip";
+        String url = "http://" + CoreUtils.config().getData().getString("serverIp") + ":" + port + "/resources.zip";
 
         player.setResourcePack(url, hash, text("This pack is required for the best experience on this server."));
     }
