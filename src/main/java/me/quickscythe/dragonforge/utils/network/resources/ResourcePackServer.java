@@ -9,6 +9,7 @@ import me.quickscythe.dragonforge.utils.storage.DataManager;
 import net.kyori.adventure.resource.ResourcePackRequest;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.event.ClickEvent;
+import net.kyori.adventure.text.format.TextColor;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
@@ -73,7 +74,7 @@ public class ResourcePackServer {
 
             hash = digest.digest();
             for (Player player : Bukkit.getServer().getOnlinePlayers()) {
-                Component msg = text("Resource pack updated. Click here to reload.");
+                Component msg = text("Resource pack updated. Click here to reload.").color(TextColor.color(0x49DFFF));
                 msg = msg.clickEvent(ClickEvent.clickEvent(ClickEvent.Action.RUN_COMMAND, "/resourcepack reload"));
                 player.sendMessage(msg);
             }
