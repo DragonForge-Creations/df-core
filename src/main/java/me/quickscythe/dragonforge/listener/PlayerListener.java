@@ -1,15 +1,17 @@
 package me.quickscythe.dragonforge.listener;
 
+import io.papermc.paper.advancement.AdvancementDisplay;
 import me.quickscythe.dragonforge.utils.CoreUtils;
-import me.quickscythe.dragonforge.utils.network.NetworkUtils;
+import me.quickscythe.dragonforge.utils.advancements.EphemeralAdvancement;
+import net.kyori.adventure.text.format.NamedTextColor;
+import org.bukkit.Material;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import java.io.BufferedInputStream;
 import java.io.IOException;
-import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 import static net.kyori.adventure.text.Component.text;
