@@ -107,7 +107,6 @@ public class EphemeralAdvancement {
             }
             icon.put("components", components);
             data.getJSONObject("display").put("icon", icon);
-            System.out.println(data.toString(2));
             return this;
         }
 

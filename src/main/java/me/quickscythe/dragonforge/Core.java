@@ -26,15 +26,6 @@ public final class Core extends JavaPlugin {
         meta.setCustomModelData(1001);
         heart.setItemMeta(meta);
 
-        EphemeralAdvancement advancement = new EphemeralAdvancement.Builder(this)
-                .title(text("Test"))
-                .description("description")
-                .icon(heart)
-                .frame(AdvancementDisplay.Frame.TASK)
-                .toast(true)
-                .chat(true)
-                .build();
-        advancement.remove();
         new PlayerListener(this);
     }
 
