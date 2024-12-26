@@ -1,6 +1,7 @@
 package me.quickscythe.dragonforge.utils;
 
 
+import json2.JSONObject;
 import me.quickscythe.dragonforge.utils.chat.Logger;
 import me.quickscythe.dragonforge.utils.chat.MessageUtils;
 import me.quickscythe.dragonforge.utils.chat.placeholder.PlaceholderUtils;
@@ -16,12 +17,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.java.JavaPlugin;
-
-import java.awt.*;
-import java.text.DecimalFormat;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 
 public class CoreUtils {
 
@@ -57,10 +52,9 @@ public class CoreUtils {
         return config;
     }
 
-    public static ResourcePackServer packServer(){
+    public static ResourcePackServer packServer() {
         return packserver;
     }
-
 
 
     public static void playTotemAnimation(Player player, int customModelData) {
@@ -97,5 +91,33 @@ public class CoreUtils {
     }
 
 
+    public static JSONObject serializeComponents(ItemStack itemStack) {
+        // Remove the square brackets
+        String input = itemStack.getItemMeta().getAsComponentString();
+        input = input.substring(1, input.length() - 1);
 
+        // Split the string by commas to get key-value pairs
+        String[] pairs = input.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)");
+
+        // Create a JSONObject to hold the parsed data
+        JSONObject jsonObject = new JSONObject();
+
+        for (String pair : pairs) {
+            // Split each pair by the equals sign
+            String[] keyValue = pair.split("=", 2);
+            String key = keyValue[0].trim();
+            String value = keyValue[1].trim();
+
+            // Check if the value is a nested JSON object
+            if (value.startsWith("{") && value.endsWith("}")) {
+                jsonObject.put(key, new JSONObject(value));
+            } else {
+                jsonObject.put(key, Integer.parseInt(value));
+            }
+        }
+
+        // Return the JSON string
+        System.out.println(jsonObject.toString(2));
+        return jsonObject;
+    }
 }
