@@ -92,32 +92,20 @@ public class CoreUtils {
 
 
     public static JSONObject serializeComponents(ItemStack itemStack) {
-        // Remove the square brackets
         String input = itemStack.getItemMeta().getAsComponentString();
         input = input.substring(1, input.length() - 1);
-
-        // Split the string by commas to get key-value pairs
         String[] pairs = input.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)");
-
-        // Create a JSONObject to hold the parsed data
         JSONObject jsonObject = new JSONObject();
-
         for (String pair : pairs) {
-            // Split each pair by the equals sign
             String[] keyValue = pair.split("=", 2);
             String key = keyValue[0].trim();
             String value = keyValue[1].trim();
-
-            // Check if the value is a nested JSON object
             if (value.startsWith("{") && value.endsWith("}")) {
                 jsonObject.put(key, new JSONObject(value));
             } else {
                 jsonObject.put(key, Integer.parseInt(value));
             }
         }
-
-        // Return the JSON string
-        System.out.println(jsonObject.toString(2));
         return jsonObject;
     }
 }

@@ -98,7 +98,6 @@ public class EphemeralAdvancement {
             JSONObject icon = new JSONObject();
             icon.put("id", itemStack.getType().getKey().toString());
             icon.put("count", itemStack.getAmount());
-            //todo add components
             JSONObject components;
             ItemMeta itemMeta = itemStack.getItemMeta();
             if (itemMeta == null) components = new JSONObject();
