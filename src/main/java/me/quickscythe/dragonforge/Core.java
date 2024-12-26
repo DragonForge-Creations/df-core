@@ -18,9 +18,6 @@ public final class Core extends JavaPlugin {
         CommandManager.init();
 
         new PlayerListener(this);
-
-        MessageUtils.addMessage("test.test", text("test: [0] [1]"));
-        CoreUtils.logger().log(Logger.LogLevel.INFO, "Test", MessageUtils.getMessage("test.test", "hello", "world"));
     }
 
     @Override
