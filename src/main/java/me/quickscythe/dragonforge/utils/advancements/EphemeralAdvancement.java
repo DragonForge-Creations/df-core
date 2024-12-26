@@ -11,6 +11,10 @@ import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.advancement.AdvancementProgress;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.persistence.PersistentDataContainer;
+import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.Objects;
@@ -87,6 +91,44 @@ public class EphemeralAdvancement {
         public Builder description(Component description) {
             data.getJSONObject("display").put("description", new JSONObject(MessageUtils.serialize(description)));
             return this;
+        }
+
+        public Builder icon(ItemStack itemStack) {
+            JSONObject icon = new JSONObject();
+            icon.put("id", itemStack.getType().getKey().toString());
+            icon.put("count", itemStack.getAmount());
+            //todo add components
+            JSONObject components = new JSONObject();
+            ItemMeta itemMeta = itemStack.getItemMeta();
+            if (itemMeta == null) components = new JSONObject();
+            else {
+                PersistentDataContainer dataContainer = itemMeta.getPersistentDataContainer();
+                for (NamespacedKey key : dataContainer.getKeys()) {
+                    String namespaceKey = key.getNamespace() + ":" + key.getKey();
+                    components.put(namespaceKey, dataContainer.get(key, getDataType(dataContainer, key)));
+                }
+            }
+            icon.put("components", components);
+            data.getJSONObject("display").put("icon", icon);
+            return this;
+        }
+
+        private PersistentDataType<?,?> getDataType(PersistentDataContainer container, NamespacedKey key) {
+            if(container.has(key, PersistentDataType.STRING)) return PersistentDataType.STRING;
+            if(container.has(key, PersistentDataType.BYTE)) return PersistentDataType.BYTE;
+            if(container.has(key, PersistentDataType.SHORT)) return PersistentDataType.SHORT;
+            if(container.has(key, PersistentDataType.INTEGER)) return PersistentDataType.INTEGER;
+            if(container.has(key, PersistentDataType.LONG)) return PersistentDataType.LONG;
+            if(container.has(key, PersistentDataType.FLOAT)) return PersistentDataType.FLOAT;
+            if(container.has(key, PersistentDataType.DOUBLE)) return PersistentDataType.DOUBLE;
+            if(container.has(key, PersistentDataType.BYTE_ARRAY)) return PersistentDataType.BYTE_ARRAY;
+            if(container.has(key, PersistentDataType.INTEGER_ARRAY)) return PersistentDataType.INTEGER_ARRAY;
+            if(container.has(key, PersistentDataType.LONG_ARRAY)) return PersistentDataType.LONG_ARRAY;
+            if(container.has(key, PersistentDataType.TAG_CONTAINER)) return PersistentDataType.TAG_CONTAINER;
+            if(container.has(key, PersistentDataType.BOOLEAN)) return PersistentDataType.BOOLEAN;
+            if(container.has(key, PersistentDataType.INTEGER_ARRAY)) return PersistentDataType.INTEGER_ARRAY;
+            if(container.has(key, PersistentDataType.LONG_ARRAY)) return PersistentDataType.LONG_ARRAY;
+            return PersistentDataType.PrimitivePersistentDataType.STRING;
         }
 
         public Builder icon(Material item) {
