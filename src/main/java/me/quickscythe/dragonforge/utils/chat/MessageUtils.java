@@ -4,7 +4,6 @@ package me.quickscythe.dragonforge.utils.chat;
 import json2.JSONObject;
 import me.quickscythe.dragonforge.utils.CoreUtils;
 import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextColor;
 import net.kyori.adventure.text.format.TextDecoration;
 import net.kyori.adventure.text.serializer.gson.GsonComponentSerializer;
@@ -95,7 +94,9 @@ public class MessageUtils {
     }
 
     public static String serialize(Component component) {
-        return GsonComponentSerializer.gson().serialize(component);
+        String a = GsonComponentSerializer.gson().serialize(component);
+        if (!a.startsWith("{")) a = "{\"text\":" + a + "}";
+        return a;
     }
 
     public static Component getMessage(String key, Object... replacements) {
@@ -106,15 +107,10 @@ public class MessageUtils {
                 Component replacement;
                 if (replacements[finalI] instanceof Component) replacement = (Component) replacements[finalI];
                 else replacement = text(replacements[finalI].toString());
-                builder.match("[" + finalI + "]").replacement(replacement);
+                builder.match("\\[" + finalI + "\\]").replacement(replacement);
             });
         }
-
         return a;
-//        String a = getMessageRaw(key);
-//        for (int i = 0; i != replacements.length; i++)
-//            a = a.replaceFirst("\\[" + i + "]", replacements[i].toString());
-//        return GsonComponentSerializer.gson().deserialize(a);
     }
 
     private static Component getMessageRaw(String key) {

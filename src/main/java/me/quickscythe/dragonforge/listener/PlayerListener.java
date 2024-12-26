@@ -24,19 +24,23 @@ public class PlayerListener implements Listener {
 
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent e) throws NoSuchAlgorithmException, IOException {
-//        String[] props = new String[]{CoreUtils.config().getData().getString("jenkins_user"), CoreUtils.config().getData().getString("jenkins_password"), CoreUtils.config().getData().getString("jenkins_url"), CoreUtils.config().getData().getString("jenkins_api_endpoint")};
-//        String url = "https://downloads.vanillaflux.com/assets.zip";
-//        byte[] buffer = new byte[8192];
-//        int count;
-//        MessageDigest digest = MessageDigest.getInstance("SHA-1");
-//        try (BufferedInputStream bis = new BufferedInputStream(NetworkUtils.downloadFile(url))) {
-//            while ((count = bis.read(buffer)) > 0) {
-//                digest.update(buffer, 0, count);
-//            }
-//        }
-//
-//        byte[] hash = digest.digest();
-//        e.getPlayer().setResourcePack(url, hash, text("This is a resource pack"));
         CoreUtils.packServer().setPack(e.getPlayer());
+    }
+
+    @EventHandler
+    public void onPlayerInteract(PlayerInteractEvent e) {
+        if (e.getItem() != null && e.getItem().getType() == Material.DIAMOND) {
+            EphemeralAdvancement.Builder builder = new EphemeralAdvancement.Builder(CoreUtils.plugin());
+            builder.title("title")
+                    .description("description")
+                    .icon(Material.DIAMOND)
+                    .frame(AdvancementDisplay.Frame.TASK)
+                    .toast(true)
+                    .chat(true);
+//                    .announceMessage(text("You got a diamond!").color(NamedTextColor.GREEN))
+//                    .announceSound("minecraft:entity.player.levelup");
+            EphemeralAdvancement advancement = builder.build();
+            advancement.send(e.getPlayer());
+        }
     }
 }

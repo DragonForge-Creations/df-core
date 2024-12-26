@@ -1,5 +1,6 @@
 package me.quickscythe.dragonforge.utils.advancements;
 
+
 import io.papermc.paper.advancement.AdvancementDisplay;
 import json2.JSONObject;
 import me.quickscythe.dragonforge.utils.CoreUtils;
@@ -14,6 +15,8 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.Objects;
 
+import static net.kyori.adventure.text.Component.text;
+
 public class EphemeralAdvancement {
 
     private final NamespacedKey key;
@@ -23,16 +26,12 @@ public class EphemeralAdvancement {
         Bukkit.getUnsafe().loadAdvancement(key, data.toString());
     }
 
-    public void send(Player player){
-
+    public void send(Player player) {
         AdvancementProgress progress = player.getAdvancementProgress(Objects.requireNonNull(player.getServer().getAdvancement(key)));
         progress.getRemainingCriteria().forEach(progress::awardCriteria);
-//        progress.getAwardedCriteria().forEach(progress::revokeCriteria);
         Bukkit.getScheduler().runTaskLaterAsynchronously(CoreUtils.plugin(), () -> {
             progress.getAwardedCriteria().forEach(progress::revokeCriteria);
-        }, 20*5);
-//        Bukkit.getUnsafe().removeAdvancement(key);
-//        Bukkit.getServer().getUnsafe().removeAdvancement(key);
+        }, 20 * 5);
 
     }
 
@@ -53,7 +52,7 @@ public class EphemeralAdvancement {
         public Builder(JavaPlugin plugin) {
             this.plugin = plugin;
             JSONObject display = new JSONObject();
-            display.put("title", "title");
+            display.put("title", new JSONObject(MessageUtils.serialize(text("title"))));
             display.put("description", "description");
             JSONObject displayIcon = new JSONObject();
             displayIcon.put("id", "minecraft:stone");
@@ -71,12 +70,22 @@ public class EphemeralAdvancement {
         }
 
         public Builder title(String title) {
-            data.getJSONObject("display").put("title", title);
+            data.getJSONObject("display").put("title", new JSONObject(MessageUtils.serialize(text(title))));
+            return this;
+        }
+
+        public Builder title(Component title) {
+            data.getJSONObject("display").put("title", new JSONObject(MessageUtils.serialize(title)));
             return this;
         }
 
         public Builder description(String description) {
-            data.getJSONObject("display").put("description", description);
+            data.getJSONObject("display").put("description", new JSONObject(MessageUtils.serialize(text(description))));
+            return this;
+        }
+
+        public Builder description(Component description) {
+            data.getJSONObject("display").put("description", new JSONObject(MessageUtils.serialize(description)));
             return this;
         }
 
@@ -85,22 +94,18 @@ public class EphemeralAdvancement {
             return this;
         }
 
-        public Builder icon(String icon){
-            data.getJSONObject("display").getJSONObject("icon").put("id", icon);
-            return this;
-        }
 
         public Builder frame(AdvancementDisplay.Frame frame) {
             data.getJSONObject("display").put("frame", frame.name().toLowerCase());
             return this;
         }
 
-        public Builder showToast(boolean showToast) {
+        public Builder toast(boolean showToast) {
             data.getJSONObject("display").put("show_toast", showToast);
             return this;
         }
 
-        public Builder announceToChat(boolean announceToChat) {
+        public Builder chat(boolean announceToChat) {
             data.getJSONObject("display").put("announce_to_chat", announceToChat);
             return this;
         }
@@ -121,3 +126,4 @@ public class EphemeralAdvancement {
 
     }
 }
+
