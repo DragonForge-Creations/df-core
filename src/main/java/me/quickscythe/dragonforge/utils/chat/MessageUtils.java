@@ -76,9 +76,6 @@ public class MessageUtils {
         addMessage("cmd.error.no_perm", "{\"text\":\"Sorry, you don't have the permission to run that command.\",\"color\":\"red\"}");
         addMessage("cmd.error.no_command", "{\"text\":\"Sorry, couldn't find the command \\\"[0]\\\". Please check your spelling and try again.\",\"color\":\"red\"}");
         addMessage("cmd.error.no_console", "{\"text\":\"Sorry, this command can only be run by players.\",\"color\":\"red\"}");
-        Component text = text("test", TextColor.color(0x64FFA2), TextDecoration.BOLD);
-        text = text.append(text("line2", TextColor.color(0xFF20EC), TextDecoration.OBFUSCATED));
-        addMessage("cmd.test", text);
     }
 
     public static Component deserialize(JSONObject json) {
