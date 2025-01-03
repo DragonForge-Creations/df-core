@@ -38,7 +38,7 @@ public class ResourcePackCommand extends CommandExecutor {
 
             CommandSender sender = context.getSource().getSender();
             if (action.equalsIgnoreCase("update") && sender.hasPermission("df.admin.resourcepack.update")) {
-                CoreUtils.packServer().sync();
+                CoreUtils.packServer().updatePack();
                 return 1;
             }
             if (action.equalsIgnoreCase("reload") && sender.hasPermission("df.admin.resourcepack.reload")) {
