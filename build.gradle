@@ -23,6 +23,7 @@ repositories {
 }
 
 dependencies {
+    compileOnly "org.eclipse.jgit:org.eclipse.jgit:$jgit_version"
     paperweight.paperDevBundle("${minecraft_version}-${paper_build}")
 }
 paperweight.reobfArtifactConfiguration = ReobfArtifactConfiguration.getMOJANG_PRODUCTION()

@@ -2,3 +2,4 @@ name: DragonForgeCore
 version: "${version}"
 main: me.quickscythe.dragonforge.Core
 api-version: '1.21'
+loader: me.quickscythe.dragonforge.Loader
