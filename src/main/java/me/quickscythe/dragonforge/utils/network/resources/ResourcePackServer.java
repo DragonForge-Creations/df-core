@@ -349,6 +349,7 @@ public class ResourcePackServer {
 
     public void setUrl(String url) {
         if (url.isEmpty()) return;
+        this.url = url;
         if (!serverStarted) startServer();
         CoreUtils.logger().log("Resources", "Resource pack URL changed. Updating pack.");
         try {
