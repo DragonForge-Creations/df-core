@@ -375,7 +375,7 @@ public class ResourcePackServer {
     public void setPack(Player player) throws IOException, NoSuchAlgorithmException {
         if (!enabled()) return;
         String url = "http://" + CoreUtils.config().getData().getString("serverIp") + ":" + port + "/resources.zip";
-
+        CoreUtils.logger().log("Resources", "Setting resource pack for " + player.getName());
         player.setResourcePack(url, storedHash, text("This pack is required for the best experience on this server."));
     }
 
