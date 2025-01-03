@@ -268,7 +268,7 @@ public class ResourcePackServer {
         }
     }
 
-    private void sync() {
+    public void sync() {
         CoreUtils.logger().log("Resources", "Syncing resource pack.");
         if (repo.exists() && new File(repo, ".git").exists()) updateRepo();
         else cloneRepo();
