@@ -229,6 +229,9 @@ public class ResourcePackServer {
     public ResourcePackServer(int port) {
         this.port = port;
         hashData = ConfigFileManager.getFile(CoreUtils.plugin(), "resource_hashes");
+        if(!hashData.getData().has("commit_hash")) hashData.getData().put("commit_hash", "");
+        if (!hashData.getData().has("encrypted_zip_hash")) hashData.getData().put("encrypted_zip_hash", "");
+        hashData.save();
         pack = new File(DataManager.getDataFolder(), "resources/pack.zip");
         repo = new File(DataManager.getDataFolder(), "resources/repo/");
         if (!pack.getParentFile().isDirectory())
@@ -292,7 +295,7 @@ public class ResourcePackServer {
         if (!enabled()) return;
         CoreUtils.logger().log("Resources", "Cloning resource pack.");
         try {
-            Git git = Git.cloneRepository().setURI(url).setDirectory(repo).setBranch("main").call();
+            Git git = Git.cloneRepository().setURI(url).setDirectory(repo).setBranch("master").call();
 
             CoreUtils.logger().log("Resources", "Cloned resource pack.");
             RevCommit commit = new RevWalk(git.getRepository()).parseCommit(git.getRepository().findRef("HEAD").getObjectId());
@@ -328,13 +331,14 @@ public class ResourcePackServer {
                 CoreUtils.logger().log("Resources", "Resource pack hash matches. Skipping update.");
                 return;
             }
-            if (hashData.getData().getString("commit_hash").equals(newCommitHash)) {
-                CoreUtils.logger().log("Resources", "Commit hash match. Skipping update.");
-                return;
-            }
+//            if (hashData.getData().getString("commit_hash").equals(newCommitHash)) {
+//                CoreUtils.logger().log("Resources", "Commit hash match. Skipping update.");
+//                return;
+//            }
             storedHash = newHash;
             hashData.getData().put("commit_hash", newCommitHash);
             hashData.getData().put("encrypted_zip_hash", newEncryptedHash);
+            hashData.save();
             CoreUtils.logger().log("Resources", "Resource pack hash mismatch. Updating pack.");
             updatePack();
         } catch (IOException | NoSuchAlgorithmException e) {

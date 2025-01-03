@@ -27,6 +27,7 @@ public final class Core extends JavaPlugin {
         heart.setItemMeta(meta);
 
         new PlayerListener(this);
+
     }
 
     @Override
