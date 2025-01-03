@@ -60,7 +60,6 @@ public class ResourcePackServer {
         try {
             InputStream in = NetworkUtils.downloadFile(url, props[0], props[1]);
             pack.delete();
-            pack.createNewFile();
             FileOutputStream out = new FileOutputStream(pack);
             byte[] buffer = new byte[8192];
             int count;
