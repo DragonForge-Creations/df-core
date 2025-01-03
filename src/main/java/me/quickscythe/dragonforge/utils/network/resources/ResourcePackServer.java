@@ -59,6 +59,8 @@ public class ResourcePackServer {
         String[] props = new String[]{CoreUtils.config().getData().getString("jenkins_user"), CoreUtils.config().getData().getString("jenkins_password"), CoreUtils.config().getData().getString("jenkins_url"), CoreUtils.config().getData().getString("jenkins_api_endpoint")};
         try {
             InputStream in = NetworkUtils.downloadFile(url, props[0], props[1]);
+            pack.delete();
+            pack.createNewFile();
             FileOutputStream out = new FileOutputStream(pack);
             byte[] buffer = new byte[8192];
             int count;
