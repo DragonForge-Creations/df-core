@@ -7,7 +7,6 @@ import me.quickscythe.dragonforge.utils.chat.MessageUtils;
 import me.quickscythe.dragonforge.utils.chat.placeholder.PlaceholderUtils;
 import me.quickscythe.dragonforge.utils.config.ConfigFile;
 import me.quickscythe.dragonforge.utils.config.ConfigFileManager;
-import me.quickscythe.dragonforge.utils.network.resources.ResourcePackServer;
 import me.quickscythe.dragonforge.utils.storage.DataManager;
 import org.bukkit.Bukkit;
 import org.bukkit.EntityEffect;
@@ -23,7 +22,6 @@ public class CoreUtils {
     private static Logger logger;
     private static ConfigFile config;
     private static JavaPlugin plugin;
-    private static ResourcePackServer packserver;
 
 
     public static void init(JavaPlugin plugin) {
@@ -34,7 +32,6 @@ public class CoreUtils {
 
         PlaceholderUtils.registerPlaceholders();
         MessageUtils.start();
-        packserver = new ResourcePackServer(12345);
 
 
     }
@@ -52,9 +49,6 @@ public class CoreUtils {
         return config;
     }
 
-    public static ResourcePackServer packServer() {
-        return packserver;
-    }
 
 
     public static void playTotemAnimation(Player player, int customModelData) {

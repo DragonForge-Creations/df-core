@@ -2,7 +2,6 @@ package me.quickscythe.dragonforge;
 
 import io.papermc.paper.advancement.AdvancementDisplay;
 import me.quickscythe.dragonforge.commands.CommandManager;
-import me.quickscythe.dragonforge.listener.PlayerListener;
 import me.quickscythe.dragonforge.utils.CoreUtils;
 import me.quickscythe.dragonforge.utils.advancements.EphemeralAdvancement;
 import me.quickscythe.dragonforge.utils.chat.Logger;
@@ -26,7 +25,6 @@ public final class Core extends JavaPlugin {
         meta.setCustomModelData(1001);
         heart.setItemMeta(meta);
 
-        new PlayerListener(this);
 
     }
 
