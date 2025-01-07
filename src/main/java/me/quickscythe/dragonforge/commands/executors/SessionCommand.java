@@ -37,7 +37,7 @@ public class SessionCommand extends CommandExecutor {
                         .executes(context -> {
                             if (!context.getSource().getSender().hasPermission("dragonforge.session.end"))
                                 return logError(context, MessageUtils.getMessage("cmd.error.no_perm"));
-                            SessionManager.session().start();
+                            SessionManager.session().end();
                             context.getSource().getSender().sendMessage(MessageUtils.getMessage("cmd.session.end"));
                             return 1;
                         }))

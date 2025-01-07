@@ -1,6 +1,7 @@
 package me.quickscythe.dragonforge.utils.sessions;
 
 import json2.JSONObject;
+import me.quickscythe.dragonforge.utils.CoreUtils;
 import org.bukkit.advancement.Advancement;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -32,7 +33,11 @@ public class Session {
     }
 
     public Session end() {
-        onEnd.ifPresent(Runnable::run);
+        CoreUtils.logger().log("Session", "Session Value Task: " + (task.isPresent() ? "Present" : "Not Present"));
+        CoreUtils.logger().log("Session", "Session Value Reward: " + (reward.isPresent() ? "Present" : "Not Present"));
+        CoreUtils.logger().log("Session", "Session Value onEnd: " + (onEnd.isPresent() ? "Present" : "Not Present"));
+        if(onEnd.isPresent()) onEnd.get().run();
+//        onEnd.ifPresent(Runnable::run);
         return this;
     }
 
