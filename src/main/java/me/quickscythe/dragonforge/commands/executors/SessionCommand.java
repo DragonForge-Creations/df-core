@@ -27,7 +27,7 @@ public class SessionCommand extends CommandExecutor {
                 })
                 .then(literal("start")
                         .executes(context -> {
-                            if (context.getSource().getSender().hasPermission("dragonforge.session.start"))
+                            if (!context.getSource().getSender().hasPermission("dragonforge.session.start"))
                                 return logError(context, MessageUtils.getMessage("cmd.error.no_perm"));
                             SessionManager.session().start();
                             context.getSource().getSender().sendMessage(MessageUtils.getMessage("cmd.session.start"));
@@ -35,7 +35,7 @@ public class SessionCommand extends CommandExecutor {
                         }))
                 .then(literal("end")
                         .executes(context -> {
-                            if (context.getSource().getSender().hasPermission("dragonforge.session.end"))
+                            if (!context.getSource().getSender().hasPermission("dragonforge.session.end"))
                                 return logError(context, MessageUtils.getMessage("cmd.error.no_perm"));
                             SessionManager.session().start();
                             context.getSource().getSender().sendMessage(MessageUtils.getMessage("cmd.session.end"));
@@ -48,7 +48,7 @@ public class SessionCommand extends CommandExecutor {
                         })
                         .then(argument("reward", ArgumentTypes.itemStack())
                                 .executes(context -> {
-                                    if (context.getSource().getSender().hasPermission("dragonforge.session.reward"))
+                                    if (!context.getSource().getSender().hasPermission("dragonforge.session.reward"))
                                         return logError(context, MessageUtils.getMessage("cmd.error.no_perm"));
                                     ItemStack reward = context.getArgument("reward", ItemStack.class);
                                     SessionManager.session().reward(reward);
@@ -62,7 +62,7 @@ public class SessionCommand extends CommandExecutor {
                         })
                         .then(argument("task", new AdvancementArgumentType())
                                 .executes(context -> {
-                                    if (context.getSource().getSender().hasPermission("dragonforge.session.task"))
+                                    if (!context.getSource().getSender().hasPermission("dragonforge.session.task"))
                                         return logError(context, MessageUtils.getMessage("cmd.error.no_perm"));
                                     Advancement task = context.getArgument("task", Advancement.class);
                                     SessionManager.session().task(task);
