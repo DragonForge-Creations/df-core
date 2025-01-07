@@ -7,6 +7,7 @@ import me.quickscythe.dragonforge.utils.chat.MessageUtils;
 import me.quickscythe.dragonforge.utils.chat.placeholder.PlaceholderUtils;
 import me.quickscythe.dragonforge.utils.config.ConfigFile;
 import me.quickscythe.dragonforge.utils.config.ConfigFileManager;
+import me.quickscythe.dragonforge.utils.sessions.SessionManager;
 import me.quickscythe.dragonforge.utils.storage.DataManager;
 import org.bukkit.Bukkit;
 import org.bukkit.EntityEffect;
@@ -29,7 +30,7 @@ public class CoreUtils {
         logger = new Logger(plugin);
         DataManager.init(plugin);
         config = ConfigFileManager.getFile(plugin, "config", "config.json");
-
+        SessionManager.init();
         PlaceholderUtils.registerPlaceholders();
         MessageUtils.start();
 

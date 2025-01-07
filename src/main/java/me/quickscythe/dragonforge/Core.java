@@ -1,10 +1,7 @@
 package me.quickscythe.dragonforge;
 
-import io.papermc.paper.advancement.AdvancementDisplay;
 import me.quickscythe.dragonforge.commands.CommandManager;
 import me.quickscythe.dragonforge.utils.CoreUtils;
-import me.quickscythe.dragonforge.utils.advancements.EphemeralAdvancement;
-import me.quickscythe.dragonforge.utils.chat.Logger;
 import me.quickscythe.dragonforge.utils.chat.MessageUtils;
 import me.quickscythe.dragonforge.utils.storage.DataManager;
 import org.bukkit.Material;
@@ -12,7 +9,6 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import static net.kyori.adventure.text.Component.text;
 
 public final class Core extends JavaPlugin {
 

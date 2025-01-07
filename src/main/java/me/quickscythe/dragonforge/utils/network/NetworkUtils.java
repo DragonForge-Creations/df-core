@@ -21,8 +21,8 @@ public class NetworkUtils {
             URL myUrl = new URI(url).toURL();
             HttpURLConnection conn = (HttpURLConnection) myUrl.openConnection();
             conn.setDoOutput(true);
-            conn.setReadTimeout(30000);
-            conn.setConnectTimeout(30000);
+            conn.setReadTimeout(5000);
+            conn.setConnectTimeout(5000);
             conn.setUseCaches(false);
             conn.setAllowUserInteraction(false);
             conn.setRequestProperty("Content-Type", "application/json");

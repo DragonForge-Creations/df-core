@@ -82,7 +82,6 @@ public class UpdateCommand extends CommandExecutor {
                                             CoreUtils.logger().log(Logger.LogLevel.ERROR, "Updater", e);
                                         } catch (IOException e) {
                                             CoreUtils.logger().log(Logger.LogLevel.ERROR, "Updater", "ERROR");
-                                            throw new RuntimeException(e);
                                         }
                                     }
                                     return Command.SINGLE_SUCCESS;
@@ -107,7 +106,8 @@ public class UpdateCommand extends CommandExecutor {
                 builder.suggest(s);
             }
         } catch (ParserConfigurationException | SAXException | IOException e) {
-            throw new RuntimeException(e);
+            context.getSource().getSender().sendMessage(text("An error occurred while fetching versions.", NamedTextColor.RED));
+            return builder.buildFuture();
         }
         return builder.buildFuture();
     }
@@ -127,7 +127,9 @@ public class UpdateCommand extends CommandExecutor {
                 }
             }
         } catch (ParserConfigurationException | SAXException | IOException ex) {
-            throw new RuntimeException(ex);
+            context.getSource().getSender().sendMessage(text("An error occurred while fetching versions.", NamedTextColor.RED));
+
+            return builder.buildFuture();
         }
         return builder.buildFuture();
     }
