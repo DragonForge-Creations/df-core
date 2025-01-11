@@ -34,6 +34,8 @@ public class Session {
 
     public Session end() {
         if(onEnd.isPresent()) onEnd.get().run();
+        System.out.println("Session ended");
+        System.out.println(data.toString(2));
 //        onEnd.ifPresent(Runnable::run);
         return this;
     }
