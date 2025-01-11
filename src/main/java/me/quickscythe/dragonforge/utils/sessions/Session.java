@@ -14,7 +14,7 @@ import java.util.UUID;
 
 public class Session {
 
-    private final Map<UUID, JSONObject> data = new HashMap<>();
+    private final JSONObject data = new JSONObject();
     private Optional<Runnable> onEnd = Optional.empty();
     private Optional<ItemStack> reward = Optional.empty();
     private Optional<Advancement> task = Optional.empty();
@@ -33,9 +33,6 @@ public class Session {
     }
 
     public Session end() {
-        CoreUtils.logger().log("Session", "Session Value Task: " + (task.isPresent() ? "Present" : "Not Present"));
-        CoreUtils.logger().log("Session", "Session Value Reward: " + (reward.isPresent() ? "Present" : "Not Present"));
-        CoreUtils.logger().log("Session", "Session Value onEnd: " + (onEnd.isPresent() ? "Present" : "Not Present"));
         if(onEnd.isPresent()) onEnd.get().run();
 //        onEnd.ifPresent(Runnable::run);
         return this;
@@ -66,13 +63,17 @@ public class Session {
 
 
     public Session track(@NotNull Player player) {
-        if (!data.containsKey(player.getUniqueId())) {
-            data.put(player.getUniqueId(), new JSONObject());
+        if (!data.has(String.valueOf(player.getUniqueId()))) {
+            data.put(String.valueOf(player.getUniqueId()), new JSONObject());
         }
         return this;
     }
 
     public JSONObject data(Player player) {
-        return data.get(player.getUniqueId());
+        return data.getJSONObject(String.valueOf(player.getUniqueId()));
+    }
+
+    public JSONObject data(){
+        return data;
     }
 }
