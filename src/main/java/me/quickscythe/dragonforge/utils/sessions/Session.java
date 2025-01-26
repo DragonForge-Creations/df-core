@@ -39,7 +39,8 @@ public class Session {
     }
 
     public Session end() {
-        for (Player player : Bukkit.getOnlinePlayers()) {
+        for(String uuidString : data.keySet()){
+            OfflinePlayer player = Bukkit.getOfflinePlayer(uuidString);
             finalize(player);
         }
         onEnd.ifPresent(Runnable::run);
