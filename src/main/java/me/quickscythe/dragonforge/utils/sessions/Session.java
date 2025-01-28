@@ -14,6 +14,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 public class Session {
 
@@ -39,17 +40,28 @@ public class Session {
     }
 
     public Session end() {
-        for(String uuidString : data.keySet()){
+        List<String> keys = new ArrayList<>(data.keySet());
+        for(String uuidString : keys){
+            if(!validUUID(uuidString)) continue;
             OfflinePlayer player = Bukkit.getOfflinePlayer(uuidString);
             finalize(player);
         }
         onEnd.ifPresent(Runnable::run);
         System.out.println("Session ended");
         System.out.println(data.toString(2));
-        List<String> keys = new ArrayList<>(data.keySet());
+
         keys.forEach(data::remove);
         startTime = 0;
         return this;
+    }
+
+    private boolean validUUID(String uuidString) {
+        try {
+            UUID.fromString(uuidString);
+            return true;
+        } catch (IllegalArgumentException e) {
+            return false;
+        }
     }
 
     public Session end(@NotNull Runnable onEnd) {
