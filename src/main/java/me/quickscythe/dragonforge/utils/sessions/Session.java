@@ -43,7 +43,7 @@ public class Session {
         List<String> keys = new ArrayList<>(data.keySet());
         for(String uuidString : keys){
             if(!validUUID(uuidString)) continue;
-            OfflinePlayer player = Bukkit.getOfflinePlayer(uuidString);
+            OfflinePlayer player = Bukkit.getOfflinePlayer(UUID.fromString(uuidString));
             finalize(player);
         }
         onEnd.ifPresent(Runnable::run);
