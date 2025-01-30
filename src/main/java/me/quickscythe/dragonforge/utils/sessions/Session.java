@@ -57,8 +57,7 @@ public class Session {
 
     private boolean validUUID(String uuidString) {
         try {
-            UUID.fromString(uuidString);
-            return true;
+            return Bukkit.getOfflinePlayer(UUID.fromString(uuidString)).hasPlayedBefore();
         } catch (IllegalArgumentException e) {
             return false;
         }
