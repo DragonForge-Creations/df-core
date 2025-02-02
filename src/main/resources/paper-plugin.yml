@@ -1,5 +1,6 @@
-name: DragonForgeCore
-version: "${version}"
-main: me.quickscythe.dragonforge.Core
-api-version: '1.21'
-loader: me.quickscythe.dragonforge.Loader
+name: "${name}"
+version: "${plugin_version}"
+author: "${author}"
+api-version: "${minecraft_version}"
+main: me.quickscythe.dragonforge.core.Initializer
+loader: me.quickscythe.dragonforge.core.Loader
